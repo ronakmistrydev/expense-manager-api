@@ -31,6 +31,6 @@ public class Account {
         this.currency = currency;
         this.name = name;
         this.type = type;
-        this.transactions = new HashMap();
+        this.transactions = new HashMap<>();
     }
 }

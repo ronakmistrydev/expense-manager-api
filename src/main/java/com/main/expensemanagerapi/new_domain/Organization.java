@@ -11,7 +11,7 @@ public class Organization {
 
     private HashMap<String, UserVo> users;
 
-    Organization(String id, String userSub) {
+    public Organization(String id, String userSub) {
         this.id = id;
         this.users = new HashMap<>(){{
             put(userSub, new UserVo(userSub));
