@@ -10,7 +10,6 @@ import java.util.HashMap;
 public class Account {
     private final String id;
     private final String organizationId;
-    private Long balance;
     private final String createdBy;
     private Currency currency;
     private String name;
@@ -28,7 +27,6 @@ public class Account {
     ) {
         this.id = id;
         this.organizationId = organizationId;
-        this.balance = balance;
         this.createdBy = createdBy;
         this.currency = currency;
         this.name = name;
@@ -36,19 +34,11 @@ public class Account {
         this.transactions = new HashMap<>();
     }
 
-    public void credit(AccountTransactionDto dto) {
+    public void addTransaction(AccountTransactionDto dto) {
         new AccountTransaction(
-            "account-transaction-credit"+new Date().getTime(),
-            new Date(),
-            dto
-        );
-    }
-
-    public void debit(AccountTransactionDto dto) {
-        new AccountTransaction(
-            "account-transaction-debit"+new Date().getTime(),
-            new Date(),
-            dto
+                "account-transaction-"+new Date().getTime(),
+                new Date(),
+                dto
         );
     }
 
