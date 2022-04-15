@@ -16,6 +16,7 @@ public class OrganizationEntityRepository implements EntityRepository<Organizati
 
     @Override
     public Organization getById(String id) {
+        OrganizationEntity entity = mongoTemplate.findById(id, OrganizationEntity.class);
         return null;
     }
 
