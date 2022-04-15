@@ -20,6 +20,10 @@ public class Organization {
         this.transactionUsers = new HashMap<>();
     }
 
+    public String getId() {
+        return id;
+    }
+
     /*
     * add user by sub id
     * add user by userVo
