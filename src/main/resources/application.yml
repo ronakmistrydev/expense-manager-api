@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://expense-manager-dev:6Gru3iDfZW2EhRuK@cluster0.rbcxf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      database: myFirstDatabase

@@ -18,6 +18,8 @@ public class AccountTransaction {
     private String toAccountId;
     private TransactionType type;
 
+    //TODO:: add transaction users
+
     public AccountTransaction(
         String id,
         String categoryId,
