@@ -6,10 +6,10 @@ import java.util.Currency;
 import java.util.HashMap;
 
 public class Account {
-    private String id;
-    private String organizationId;
+    private final String id;
+    private final String organizationId;
     private Long balance;
-    private String createdBy;
+    private final String createdBy;
     private Currency currency;
     private String name;
     private AccountType type;
@@ -22,8 +22,7 @@ public class Account {
         String createdBy,
         Currency currency,
         String name,
-        AccountType type,
-        HashMap<String, AccountTransaction> transactions
+        AccountType type
     ) {
         this.id = id;
         this.organizationId = organizationId;
@@ -32,6 +31,6 @@ public class Account {
         this.currency = currency;
         this.name = name;
         this.type = type;
-        this.transactions = transactions;
+        this.transactions = new HashMap();
     }
 }

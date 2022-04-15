@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Organization {
 
-    private String id;
+    private final String id;
 
     private HashMap<String, UserVo> users;
 
