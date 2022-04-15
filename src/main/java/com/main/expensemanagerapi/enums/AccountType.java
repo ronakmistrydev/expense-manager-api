@@ -1,4 +1,4 @@
-package com.main.expensemanagerapi.domain;
+package com.main.expensemanagerapi.enums;
 
 public enum AccountType {
     CREDIT_CARD("DEBIT"),
