@@ -1,4 +1,4 @@
-package com.main.expensemanagerapi.new_domain;
+package com.main.expensemanagerapi.domain;
 
 import com.main.expensemanagerapi.enums.TransactionType;
 

@@ -1,49 +1,36 @@
 package com.main.expensemanagerapi.domain;
 
+import com.main.expensemanagerapi.enums.AccountType;
+
+import java.util.Currency;
+import java.util.HashMap;
+
 public class Account {
-    private String id;
+    private final String id;
+    private final String organizationId;
     private Long balance;
+    private final String createdBy;
+    private Currency currency;
     private String name;
-    private String currency;
+    private AccountType type;
+    private HashMap<String, AccountTransaction> transactions;
 
-    private String organizationId;
-
-    public String getId() {
-        return id;
-    }
-
-    public Long getBalance() {
-        return balance;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public String getOrganizationId() {
-        return organizationId;
-    }
-
-    public Account create(String id, Long balance, String name, String currency, String organizationId) {
+    public Account(
+        String id,
+        String organizationId,
+        Long balance,
+        String createdBy,
+        Currency currency,
+        String name,
+        AccountType type
+    ) {
         this.id = id;
-        this.balance = balance;
-        this.name = name;
-        this.currency = currency;
         this.organizationId = organizationId;
-        return this;
-    }
-
-    public void credit(Long amount) {
-        //TODO:: validation
-        this.balance -= amount;
-    }
-
-    public void debit(Long amount) {
-        //TODO:: validation
-        this.balance += amount;
+        this.balance = balance;
+        this.createdBy = createdBy;
+        this.currency = currency;
+        this.name = name;
+        this.type = type;
+        this.transactions = new HashMap<>();
     }
 }

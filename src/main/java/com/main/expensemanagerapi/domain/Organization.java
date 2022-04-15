@@ -1,16 +1,25 @@
 package com.main.expensemanagerapi.domain;
 
-import java.io.Serializable;
+import com.main.expensemanagerapi.vo.UserVo;
 
-public class Organization implements Serializable {
-    private String id;
+import java.util.HashMap;
 
-    public String getId() {
-        return this.id;
-    }
+public class Organization {
 
-    public Organization create(String id) {
+    private final String id;
+
+    private HashMap<String, UserVo> users;
+
+    public Organization(String id, String userSub) {
         this.id = id;
-        return this;
+        this.users = new HashMap<>(){{
+            put(userSub, new UserVo(userSub));
+        }};
     }
+
+    /*
+    * add user by sub id
+    * add user by userVo
+    * update user by sub id with user vo or editable fields
+    * */
 }

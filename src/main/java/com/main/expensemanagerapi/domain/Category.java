@@ -1,12 +1,19 @@
 package com.main.expensemanagerapi.domain;
 
+import java.util.HashMap;
+
 public class Category {
 
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
+    private final String createdBy;
 
-    public void create(String id, String name) {
+    private HashMap<String, SubCategory> subCategories;
+
+    public Category(String id, String name, String createdBy) {
         this.id = id;
         this.name = name;
+        this.createdBy = createdBy;
+        this.subCategories = new HashMap<>();
     }
 }
