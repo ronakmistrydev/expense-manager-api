@@ -1,8 +1,10 @@
 package com.main.expensemanagerapi.domain;
 
+import com.main.expensemanagerapi.dto.AccountTransactionDto;
 import com.main.expensemanagerapi.enums.AccountType;
 
 import java.util.Currency;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Account {
@@ -32,5 +34,30 @@ public class Account {
         this.name = name;
         this.type = type;
         this.transactions = new HashMap<>();
+    }
+
+    public void credit(AccountTransactionDto dto) {
+        new AccountTransaction(
+            "account-transaction-credit"+new Date().getTime(),
+            new Date(),
+            dto
+        );
+    }
+
+    public void debit(AccountTransactionDto dto) {
+        new AccountTransaction(
+            "account-transaction-debit"+new Date().getTime(),
+            new Date(),
+            dto
+        );
+    }
+
+    public void updateTransaction(String transactionId, AccountTransactionDto dto) {
+        AccountTransaction accountTransaction = this.transactions.get(transactionId);
+        new AccountTransaction(
+            accountTransaction.getId(),
+            accountTransaction.getCreatedAt(),
+            dto
+        );
     }
 }
