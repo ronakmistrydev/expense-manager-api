@@ -1,9 +1,16 @@
 package com.main.expensemanagerapi.domain;
 
-public class Organization {
+import java.io.Serializable;
+
+public class Organization implements Serializable {
     private String id;
 
-    public void create(String id) {
+    public String getId() {
+        return this.id;
+    }
+
+    public Organization create(String id) {
         this.id = id;
+        return this;
     }
 }
