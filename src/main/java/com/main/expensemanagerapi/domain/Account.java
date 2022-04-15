@@ -35,19 +35,27 @@ public class Account {
     }
 
     public void addTransaction(AccountTransactionDto dto) {
-        new AccountTransaction(
+        String accountTransactionId = "account-transaction-"+new Date().getTime();
+        this.transactions.put(
+            accountTransactionId,
+            new AccountTransaction(
                 "account-transaction-"+new Date().getTime(),
                 new Date(),
                 dto
+            )
         );
     }
 
     public void updateTransaction(String transactionId, AccountTransactionDto dto) {
+        //TODO:: validation check
         AccountTransaction accountTransaction = this.transactions.get(transactionId);
-        new AccountTransaction(
-            accountTransaction.getId(),
-            accountTransaction.getCreatedAt(),
-            dto
+        this.transactions.put(
+            transactionId,
+            new AccountTransaction(
+                    accountTransaction.getId(),
+                    accountTransaction.getCreatedAt(),
+                    dto
+            )
         );
     }
 }
