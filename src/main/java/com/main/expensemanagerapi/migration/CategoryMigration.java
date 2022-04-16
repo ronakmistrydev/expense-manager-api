@@ -60,79 +60,95 @@ public class CategoryMigration {
 
     private HashMap<String, String[]> generateCategories() {
         HashMap<String, String[]> categories = new HashMap<>();
-        categories.put("Food & Drinks", new String[]{"Bar, Cafe", "Groceries", "Restaurant, Fast-food"});
+        categories.put("Food & Drinks", new String[]{
+            "Bar, Cafe",
+            "Groceries",
+            "Restaurant, Fast-food"
+        });
         categories.put("Shopping", new String[]{
-                "Clothes & Shoes",
-                "Drug-store, Chemist",
-                "Electronics, Accessories",
-                "Free Time",
-                "Gift, Joy",
-                "Health & Beauty",
-                "Home, Garden",
-                "Jewels, Accessories",
-                "Kids",
-                "Pet, Animals",
-                "Stationery, Tools"
+            "Clothes & Shoes",
+            "Drug-store, Chemist",
+            "Electronics, Accessories",
+            "Free Time",
+            "Gift, Joy",
+            "Health & Beauty",
+            "Home, Garden",
+            "Jewels, Accessories",
+            "Kids",
+            "Pet, Animals",
+            "Stationery, Tools"
         });
         categories.put("Housing", new String[]{
-                "Energy, Utilities",
-                "Maintenance, Repairs",
-                "Mortgage",
-                "Property Insurance",
-                "Rent",
-                "Service"
+            "Energy, Utilities",
+            "Maintenance, Repairs",
+            "Mortgage",
+            "Property Insurance",
+            "Rent",
+            "Service"
         });
-        categories.put("Transportation", new String[]{"Business Trips", "Long Distance", "Public Transport", "Taxi"});
-        categories.put("Vehicle", new String[]{"Fuel", "Leasing", "Parking", "Rentals", "Vehicle Insurance", "Vehicle Maintenance"});
+        categories.put("Transportation", new String[]{
+            "Business Trips",
+            "Long Distance",
+            "Public Transport",
+            "Taxi"
+        });
+        categories.put("Vehicle", new String[]{
+            "Fuel",
+            "Leasing",
+            "Parking",
+            "Rentals",
+            "Vehicle Insurance",
+            "Vehicle Maintenance"
+        });
         categories.put("Life & Entertainment", new String[]{
-                "Active Sport, Fitness",
-                "Alcohol, Tobacco",
-                "Books, Audio, Subscriptions",
-                "Charity, Gifts",
-                "Culture, Sport events",
-                "Education, Development",
-                "Health Care, Doctor",
-                "Hobbies",
-                "Holiday, Trips, Hotels",
-                "Life Events",
-                "Lottery, Gambling",
-                "TV, Streaming",
-                "Wellness, Beauty"
+            "Active Sport, Fitness",
+            "Alcohol, Tobacco",
+            "Books, Audio, Subscriptions",
+            "Charity, Gifts",
+            "Culture, Sport events",
+            "Education, Development",
+            "Health Care, Doctor",
+            "Hobbies",
+            "Holiday, Trips, Hotels",
+            "Life Events",
+            "Lottery, Gambling",
+            "TV, Streaming",
+            "Wellness, Beauty"
         });
         categories.put("Communication, PC", new String[]{
-                "Internet",
-                "Phone, Mobile Phone",
-                "Postal Service",
-                "Software, Apps, Games"
+            "Internet",
+            "Phone, Mobile Phone",
+            "Postal Service",
+            "Software, Apps, Games"
         });
         categories.put("Financial expenses", new String[]{
-                "Advisory",
-                "Charges",
-                "Child Support",
-                "Fines",
-                "Insurance",
-                "Loan, Interests",
-                "Taxes"
+            "Advisory",
+            "Charges",
+            "Child Support",
+            "Fines",
+            "Insurance",
+            "Loan, Interests",
+            "Taxes"
         });
         categories.put("Investments", new String[]{
-                "Collections",
-                "Financial Investments",
-                "Realty",
-                "Savings",
-                "Vehicles, Chattels"
+            "Collections",
+            "Financial Investments",
+            "Realty",
+            "Savings",
+            "Vehicles, Chattels"
         });
         categories.put("Income", new String[]{
-                "Checks, Coupons",
-                "Child Support",
-                "Dues & Grants",
-                "Gifts",
-                "Interest, Dividends",
-                "Lending, Renting",
-                "Lottery, Gambling",
-                "Refund, (Tax, Purchase)",
-                "Rental Income",
-                "Sale",
-                "Wage, Invoices"
+            "Checks, Coupons",
+            "Child Support",
+            "Dues & Grants",
+            "Gifts",
+            "Interest, Dividends",
+            "Lending, Renting",
+            "Lottery, Gambling",
+            "Refund, (Tax, Purchase)",
+            "Rental Income",
+            "Sale",
+            "Wage, Invoices"
         });
         return categories;
     }

@@ -7,7 +7,6 @@ import java.util.Date;
 public abstract class RootEntity {
     @Id
     private final String id;
-
     protected Date createdAt;
     protected Date updatedAt;
 

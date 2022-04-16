@@ -9,9 +9,7 @@ import java.util.List;
 
 @Document("organization")
 public class OrganizationEntity extends RootEntity {
-
     private List<UserVo> users;
-
     public OrganizationEntity(String id, List<UserVo> users) {
         super(id);
         this.users = users;

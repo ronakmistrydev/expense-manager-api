@@ -1,7 +1,6 @@
 package com.main.expensemanagerapi.domain;
 
 import com.main.expensemanagerapi.dto.AccountTransactionDto;
-import com.main.expensemanagerapi.entity.AccountEntity;
 import com.main.expensemanagerapi.enums.TransactionType;
 
 import java.math.BigDecimal;

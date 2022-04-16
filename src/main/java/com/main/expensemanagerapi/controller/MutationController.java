@@ -48,8 +48,15 @@ public class MutationController {
         String organizationId = "97ce2f91-5e2f-4381-83f2-87b835bd0cad";
         String userSub = "8d1a0d59-79a0-4430-a813-328887e35cc9";
         String accountId = UUID.randomUUID().toString();
-
-        Account account = new Account(accountId, organizationId, 0L, userSub, Currency.getInstance("CAD"), "Scotiabank Savings Account", AccountType.SAVINGS);
+        Account account = new Account(
+            accountId,
+            organizationId,
+            0L,
+            userSub,
+            Currency.getInstance("CAD"),
+            "Scotiabank Savings Account",
+            AccountType.SAVINGS
+        );
         this.accountEntityRepository.save(account);
         return accountId;
     }
@@ -60,16 +67,16 @@ public class MutationController {
         String categoryId = "2f02c58a-7f32-42cd-86c0-506f459a866c"; //Food & Drinks
         String accountTransactionId = UUID.randomUUID().toString();
         AccountTransaction accountTransaction = new AccountTransaction(
-                accountTransactionId,
-                categoryId,
-                new BigDecimal(10.37),
-                Currency.getInstance("CAD"),
-                new Date(),
-                "My First Transaction",
-                "Tim Hortons",
-                accountId,
-                null,
-                TransactionType.EXPENSE
+            accountTransactionId,
+            categoryId,
+            new BigDecimal(10.37),
+            Currency.getInstance("CAD"),
+            new Date(),
+            "My First Transaction",
+            "Tim Hortons",
+            accountId,
+            null,
+            TransactionType.EXPENSE
         );
 
         accountTransactionEntityRepository.save(accountTransaction);

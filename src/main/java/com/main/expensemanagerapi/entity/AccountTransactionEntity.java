@@ -20,7 +20,18 @@ public class AccountTransactionEntity extends RootEntity {
     private String toAccountId;
     private TransactionType type;
 
-    public AccountTransactionEntity(String id, String categoryId, BigDecimal amount, Currency currency, Date createdAt, String note, String payee, String fromAccountId, String toAccountId, TransactionType type) {
+    public AccountTransactionEntity(
+        String id,
+        String categoryId,
+        BigDecimal amount,
+        Currency currency,
+        Date createdAt,
+        String note,
+        String payee,
+        String fromAccountId,
+        String toAccountId,
+        TransactionType type
+    ) {
         super(id);
         this.categoryId = categoryId;
         this.amount = amount;

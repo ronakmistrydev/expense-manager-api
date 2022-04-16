@@ -8,7 +8,6 @@ public class Category {
     private final String id;
     private final String name;
     private final String createdBy;
-
     private HashMap<String, SubCategory> subCategories;
 
     public Category(String id, String name, String createdBy) {

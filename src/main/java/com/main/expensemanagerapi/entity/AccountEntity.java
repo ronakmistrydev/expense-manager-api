@@ -16,7 +16,6 @@ public class AccountEntity extends RootEntity {
     private String name;
     private AccountType type;
 
-
     public AccountEntity(String id, String organizationId, String createdBy, Currency currency, String name, AccountType type) {
         super(id);
         this.organizationId = organizationId;

@@ -8,7 +8,6 @@ import java.util.HashMap;
 public class Organization {
 
     private final String id;
-
     private HashMap<String, UserVo> users;
     private HashMap<String, TransactionUserVo> transactionUsers;
 
@@ -27,10 +26,4 @@ public class Organization {
     public HashMap<String, UserVo> getUsers() {
         return this.users;
     }
-
-    /*
-    * add user by sub id
-    * add user by userVo
-    * update user by sub id with user vo or editable fields
-    * */
 }

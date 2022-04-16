@@ -11,10 +11,8 @@ import java.util.List;
 @Component
 public class AccountEntityRepository implements EntityRepository<Account> {
 
-
     @Autowired
     private MongoTemplate mongoTemplate;
-
     @Override
     public Account getById(String id) {
         return null;

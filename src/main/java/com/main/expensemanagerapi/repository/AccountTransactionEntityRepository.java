@@ -10,7 +10,6 @@ import java.util.List;
 
 @Component
 public class AccountTransactionEntityRepository implements EntityRepository<AccountTransaction> {
-
     @Autowired
     private MongoTemplate mongoTemplate;
 
