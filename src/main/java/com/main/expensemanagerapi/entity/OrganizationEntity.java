@@ -11,8 +11,6 @@ import java.util.List;
 public class OrganizationEntity extends RootEntity {
 
     private List<UserVo> users;
-    private final Date createdAt;
-    private Date updatedAt;
 
     public OrganizationEntity(String id, List<UserVo> users) {
         super(id);

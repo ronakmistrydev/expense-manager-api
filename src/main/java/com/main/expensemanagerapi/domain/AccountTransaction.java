@@ -1,6 +1,7 @@
 package com.main.expensemanagerapi.domain;
 
 import com.main.expensemanagerapi.dto.AccountTransactionDto;
+import com.main.expensemanagerapi.entity.AccountEntity;
 import com.main.expensemanagerapi.enums.TransactionType;
 
 import java.math.BigDecimal;
@@ -66,7 +67,39 @@ public class AccountTransaction {
         return id;
     }
 
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public String getPayee() {
+        return payee;
+    }
+
+    public String getFromAccountId() {
+        return fromAccountId;
+    }
+
+    public String getToAccountId() {
+        return toAccountId;
+    }
+
+    public TransactionType getType() {
+        return type;
     }
 }

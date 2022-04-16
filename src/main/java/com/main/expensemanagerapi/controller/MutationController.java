@@ -6,6 +6,7 @@ import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.enums.AccountType;
 import com.main.expensemanagerapi.enums.TransactionType;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
+import com.main.expensemanagerapi.repository.AccountTransactionEntityRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,11 +21,17 @@ import java.util.UUID;
 public class MutationController {
     private final OrganizationEntityRepository organizationEntityRepository;
     private final AccountEntityRepository accountEntityRepository;
+    private final AccountTransactionEntityRepository accountTransactionEntityRepository;
 
     @Autowired
-    public MutationController(OrganizationEntityRepository organizationEntityRepository, AccountEntityRepository accountEntityRepository) {
+    public MutationController(
+        OrganizationEntityRepository organizationEntityRepository,
+        AccountEntityRepository accountEntityRepository,
+        AccountTransactionEntityRepository accountTransactionEntityRepository
+    ) {
         this.organizationEntityRepository = organizationEntityRepository;
         this.accountEntityRepository = accountEntityRepository;
+        this.accountTransactionEntityRepository = accountTransactionEntityRepository;
     }
 
     @PostMapping("/register")
@@ -65,6 +72,7 @@ public class MutationController {
                 TransactionType.EXPENSE
         );
 
+        accountTransactionEntityRepository.save(accountTransaction);
         return accountTransactionId;
     }
 }
