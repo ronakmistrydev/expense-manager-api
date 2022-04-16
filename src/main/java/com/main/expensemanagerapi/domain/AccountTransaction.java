@@ -3,6 +3,7 @@ package com.main.expensemanagerapi.domain;
 import com.main.expensemanagerapi.dto.AccountTransactionDto;
 import com.main.expensemanagerapi.enums.TransactionType;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
@@ -10,11 +11,12 @@ public class AccountTransaction {
 
     private String id;
     private String categoryId;
-    private Long amount;
+    private BigDecimal amount;
     private Currency currency;
     private Date createdAt;
     private String note;
     private String payee;
+    private String fromAccountId;
     private String toAccountId;
     private TransactionType type;
 
@@ -23,11 +25,12 @@ public class AccountTransaction {
     public AccountTransaction(
         String id,
         String categoryId,
-        Long amount,
+        BigDecimal amount,
         Currency currency,
         Date createdAt,
         String note,
         String payee,
+        String fromAccountId,
         String toAccountId,
         TransactionType type
     ) {
@@ -38,6 +41,7 @@ public class AccountTransaction {
         this.createdAt = createdAt;
         this.note = note;
         this.payee = payee;
+        this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.type = type;
     }

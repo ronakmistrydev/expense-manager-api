@@ -3,11 +3,12 @@ package com.main.expensemanagerapi.dto;
 import com.main.expensemanagerapi.enums.TransactionType;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Currency;
 
 public class AccountTransactionDto implements Serializable {
     private String categoryId;
-    private Long amount;
+    private BigDecimal amount;
     private Currency currency;
     private String note;
     private String payee;
@@ -18,7 +19,7 @@ public class AccountTransactionDto implements Serializable {
         return categoryId;
     }
 
-    public Long getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
