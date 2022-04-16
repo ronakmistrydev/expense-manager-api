@@ -21,7 +21,11 @@ public class Organization {
     }
 
     public String getId() {
-        return id;
+        return this.id;
+    }
+
+    public HashMap<String, UserVo> getUsers() {
+        return this.users;
     }
 
     /*
