@@ -34,6 +34,30 @@ public class Account {
         this.transactions = new HashMap<>();
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
     public void addTransaction(AccountTransactionDto dto) {
         String accountTransactionId = "account-transaction-"+new Date().getTime();
         this.transactions.put(
