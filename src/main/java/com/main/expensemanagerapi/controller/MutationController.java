@@ -14,11 +14,14 @@ import java.util.UUID;
 
 @RestController
 public class MutationController {
+    private final OrganizationEntityRepository organizationEntityRepository;
+    private final AccountEntityRepository accountEntityRepository;
 
     @Autowired
-    private OrganizationEntityRepository organizationEntityRepository;
-    @Autowired
-    private AccountEntityRepository accountEntityRepository;
+    public MutationController(OrganizationEntityRepository organizationEntityRepository, AccountEntityRepository accountEntityRepository) {
+        this.organizationEntityRepository = organizationEntityRepository;
+        this.accountEntityRepository = accountEntityRepository;
+    }
 
     @PostMapping("/register")
     public String register() {
