@@ -16,9 +16,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation "io.mongock:mongock:5.0.32"
-    implementation "io.mongock:mongock-springboot:5.0.32"
-    implementation "io.mongock:mongodb-springdata-v3-driver:5.0.32"
+    implementation 'org.springframework.security:spring-security-core'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'io.mongock:mongock:5.0.38'
+    implementation 'io.mongock:mongock-springboot:5.0.38'
+    implementation 'io.mongock:mongodb-springdata-v3-driver:5.0.38'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
