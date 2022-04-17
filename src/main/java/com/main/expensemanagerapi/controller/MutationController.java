@@ -9,6 +9,7 @@ import com.main.expensemanagerapi.repository.AccountEntityRepository;
 import com.main.expensemanagerapi.repository.AccountTransactionEntityRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,8 +37,8 @@ public class MutationController {
     }
 
     @GetMapping("/hello")
-    public String greetings() {
-        return "Say Hello!";
+    public String greetings(Authentication authentication) {
+        return authentication.getName();
     }
 
     @PostMapping("/register")
