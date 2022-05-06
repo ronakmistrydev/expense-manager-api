@@ -4,18 +4,29 @@ import com.main.expensemanagerapi.vo.TransactionUserVo;
 import com.main.expensemanagerapi.vo.UserVo;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class Organization {
 
     private final String id;
+    private UserVo owner;
     private HashMap<String, UserVo> users;
     private HashMap<String, TransactionUserVo> transactionUsers;
 
     public Organization(String id, String userSub) {
         this.id = id;
+        this.owner = new UserVo(userSub);
         this.users = new HashMap<>(){{
             put(userSub, new UserVo(userSub));
         }};
+        this.transactionUsers = new HashMap<>();
+    }
+
+    public Organization(String id, UserVo owner, List<UserVo> users) {
+        this.id = id;
+        this.owner = owner;
+        this.users = new HashMap<>();
+        users.forEach((user) -> this.users.put(user.getSub(), user));
         this.transactionUsers = new HashMap<>();
     }
 
@@ -25,5 +36,9 @@ public class Organization {
 
     public HashMap<String, UserVo> getUsers() {
         return this.users;
+    }
+
+    public UserVo getOwner() {
+        return owner;
     }
 }

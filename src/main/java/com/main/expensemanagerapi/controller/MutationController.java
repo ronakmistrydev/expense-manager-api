@@ -8,6 +8,7 @@ import com.main.expensemanagerapi.enums.TransactionType;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
 import com.main.expensemanagerapi.repository.AccountTransactionEntityRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
+import com.main.expensemanagerapi.service.MutationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,15 +26,19 @@ public class MutationController {
     private final AccountEntityRepository accountEntityRepository;
     private final AccountTransactionEntityRepository accountTransactionEntityRepository;
 
+    private final MutationService mutationService;
+
     @Autowired
     public MutationController(
         OrganizationEntityRepository organizationEntityRepository,
         AccountEntityRepository accountEntityRepository,
-        AccountTransactionEntityRepository accountTransactionEntityRepository
+        AccountTransactionEntityRepository accountTransactionEntityRepository,
+        MutationService mutationService
     ) {
         this.organizationEntityRepository = organizationEntityRepository;
         this.accountEntityRepository = accountEntityRepository;
         this.accountTransactionEntityRepository = accountTransactionEntityRepository;
+        this.mutationService = mutationService;
     }
 
     @GetMapping("/hello")
@@ -42,12 +47,8 @@ public class MutationController {
     }
 
     @PostMapping("/register")
-    public String register() {
-        String organizationId = UUID.randomUUID().toString();
-        String userSub = UUID.randomUUID().toString();
-        Organization organization = new Organization(organizationId, userSub);
-        organizationEntityRepository.save(organization);
-        return organizationId;
+    public String register(Authentication authentication) {
+        return mutationService.register(authentication.getName());
     }
 
     @PostMapping("/create-account")

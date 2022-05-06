@@ -13,4 +13,16 @@ public abstract class RootEntity {
     RootEntity(String id) {
         this.id = id;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 }
