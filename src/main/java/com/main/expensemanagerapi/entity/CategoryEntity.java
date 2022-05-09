@@ -46,8 +46,7 @@ public class CategoryEntity extends RootEntity {
         return new Category(
                 entity.getId(),
                 entity.getName(),
-                entity.getCreatedBy(),
-                SubCategoryEntity.toDomainMap(entity.getId(), entity.getSubCategories())
+                entity.getCreatedBy()
         );
     }
 }
