@@ -17,6 +17,13 @@ public class Category {
         this.subCategories = new HashMap<>();
     }
 
+    public Category(String id, String name, String createdBy, HashMap<String, SubCategory> subCategories) {
+        this.id = id;
+        this.name = name;
+        this.createdBy = createdBy;
+        this.subCategories = subCategories;
+    }
+
     public String getId() {
         return id;
     }
@@ -27,5 +34,17 @@ public class Category {
             subCategoryId,
             new SubCategory(subCategoryId, this.getId(), by, name)
         );
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public HashMap<String, SubCategory> getSubCategories() {
+        return subCategories;
     }
 }

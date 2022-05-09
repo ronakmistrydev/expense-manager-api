@@ -1,6 +1,6 @@
 package com.main.expensemanagerapi.entity;
 
-import com.main.expensemanagerapi.domain.Account;
+import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.enums.AccountType;
 import org.springframework.data.mongodb.core.mapping.Document;
 

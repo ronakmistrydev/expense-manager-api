@@ -11,4 +11,20 @@ public class SubCategory {
         this.createdBy = createdBy;
         this.name = name;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

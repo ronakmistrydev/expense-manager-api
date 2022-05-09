@@ -1,9 +1,11 @@
 package com.main.expensemanagerapi.service;
 
-import com.main.expensemanagerapi.domain.Account;
+import com.main.expensemanagerapi.domain.Category;
+import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.enums.AccountType;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
+import com.main.expensemanagerapi.repository.CategoryRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.types.CreateAccount;
 import com.sun.jdi.request.InvalidRequestStateException;
@@ -20,13 +22,17 @@ public class MutationService {
     private final OrganizationEntityRepository organizationEntityRepository;
     private final AccountEntityRepository accountEntityRepository;
 
+    private final CategoryRepository categoryRepository;
+
     @Autowired
     public MutationService(
-            OrganizationEntityRepository organizationEntityRepository,
-            AccountEntityRepository accountEntityRepository
+        OrganizationEntityRepository organizationEntityRepository,
+        AccountEntityRepository accountEntityRepository,
+        CategoryRepository categoryRepository
     ) {
         this.organizationEntityRepository = organizationEntityRepository;
         this.accountEntityRepository = accountEntityRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     // dfcb6a93-11f4-431c-bcd2-4c906d0323d9 - org id
@@ -86,13 +92,19 @@ public class MutationService {
         return account.getId();
     }
 
+    public List<Category> findCategories() {
+        return this.categoryRepository.findAll();
+    }
+
+    public void createRecord() {}
+
+    public void findRecords() {}
+
+    public void updateRecord() {}
+
+
     /*
      * 4. different versions of account creation
-     * 5. add validations
-     * 6. get all categories
-     * 7. create record
-     * 8. get all records
-     * 9. update records
      * 10. add payee
      * 11. update payee
      * 12. get all payee
@@ -102,5 +114,6 @@ public class MutationService {
      *
      * Nice to have
      * 1. update account (name and type)
+     * 2. validations
      */
 }

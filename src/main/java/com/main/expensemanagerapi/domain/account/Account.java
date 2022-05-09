@@ -1,4 +1,4 @@
-package com.main.expensemanagerapi.domain;
+package com.main.expensemanagerapi.domain.account;
 
 import com.main.expensemanagerapi.enums.AccountType;
 

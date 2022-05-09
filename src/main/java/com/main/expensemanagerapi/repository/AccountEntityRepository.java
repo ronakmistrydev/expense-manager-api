@@ -1,6 +1,6 @@
 package com.main.expensemanagerapi.repository;
 
-import com.main.expensemanagerapi.domain.Account;
+import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.entity.AccountEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
