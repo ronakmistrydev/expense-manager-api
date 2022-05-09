@@ -1,50 +1,39 @@
 package com.main.expensemanagerapi.domain;
 
-import java.util.Date;
-import java.util.HashMap;
-
 public class Category {
 
     private final String id;
-    private final String name;
     private final String createdBy;
-    private HashMap<String, SubCategory> subCategories;
+    private final String name;
+    private final String parentId;
 
-    public Category(String id, String name, String createdBy) {
+    public Category(String id, String createdBy, String name) {
         this.id = id;
-        this.name = name;
         this.createdBy = createdBy;
-        this.subCategories = new HashMap<>();
+        this.name = name;
+        this.parentId = null;
     }
 
-    public Category(String id, String name, String createdBy, HashMap<String, SubCategory> subCategories) {
+    public Category(String id, String createdBy, String name, String parentId) {
         this.id = id;
-        this.name = name;
         this.createdBy = createdBy;
-        this.subCategories = subCategories;
+        this.name = name;
+        this.parentId = parentId;
     }
 
     public String getId() {
         return id;
     }
 
-    public void addSubCategory(String name, String by) {
-        String subCategoryId = "subcategory-create"+new Date().getTime();
-        this.subCategories.put(
-            subCategoryId,
-            new SubCategory(subCategoryId, this.getId(), by, name)
-        );
+    public String getCreatedBy() {
+        return createdBy;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public HashMap<String, SubCategory> getSubCategories() {
-        return subCategories;
+    public String getParentId() {
+        return parentId;
     }
 }
