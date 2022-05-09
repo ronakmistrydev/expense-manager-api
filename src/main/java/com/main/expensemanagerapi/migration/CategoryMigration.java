@@ -12,30 +12,18 @@ import java.util.UUID;
 
 @ChangeUnit(id = "CategoryMigration", order = "1")
 public class CategoryMigration {
-    class SubCategory {
-        @Id
-        private final String id;
-        private final String parentId;
-        private final String createdBy;
-        private String name;
-
-        public SubCategory(String id, String parentId, String createdBy, String name) {
-            this.id = id;
-            this.parentId = parentId;
-            this.createdBy = createdBy;
-            this.name = name;
-        }
-    }
-
     class Category {
         private final String id;
         private final String name;
         private final String createdBy;
 
-        public Category(String id, String name, String createdBy) {
+        private final String parentId;
+
+        public Category(String id, String name, String createdBy, String parentId) {
             this.id = id;
             this.name = name;
             this.createdBy = createdBy;
+            this.parentId = parentId;
         }
     }
 
@@ -44,19 +32,18 @@ public class CategoryMigration {
         HashMap<String, String[]> categories = this.generateCategories();
         categories.keySet().forEach((parentCategoryName) -> {
             String categoryId = UUID.randomUUID().toString();
-            Category category = new Category(UUID.randomUUID().toString(), parentCategoryName, "SYSTEM");
+            Category category = new Category(categoryId, parentCategoryName, "SYSTEM", null);
             mongoTemplate.save(category, "category");
             Arrays.stream(categories.get(parentCategoryName)).forEach((subCategoryName) -> {
                 String subCategoryId = UUID.randomUUID().toString();
-                SubCategory subCategory = new SubCategory(subCategoryId, categoryId, "SYSTEM", subCategoryName);
-                mongoTemplate.save(subCategory, "subCategory");
+                Category subCategory = new Category(subCategoryId, subCategoryName, "SYSTEM", categoryId);
+                mongoTemplate.save(subCategory, "category");
             });
         });
     }
 
     @RollbackExecution
-    public void rollback() {
-    }
+    public void rollback() {}
 
     private HashMap<String, String[]> generateCategories() {
         HashMap<String, String[]> categories = new HashMap<>();
