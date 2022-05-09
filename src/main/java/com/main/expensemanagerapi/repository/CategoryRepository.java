@@ -5,17 +5,13 @@ import com.main.expensemanagerapi.entity.CategoryEntity;
 import com.main.expensemanagerapi.entity.SubCategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @Component
 public class CategoryRepository implements EntityRepository<Category> {
-
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -30,12 +26,10 @@ public class CategoryRepository implements EntityRepository<Category> {
         List<Category> categories = new LinkedList<>();
         List<CategoryEntity> categoryEntities = this.mongoTemplate.findAll(CategoryEntity.class);
 
-        categoryEntities.forEach((categoryEntity) -> {
-            Query query = new Query();
-            query.addCriteria(Criteria.where("parentId").is(categoryEntity.getId()));
-            List<SubCategoryEntity> subCategories = this.mongoTemplate.find(query, SubCategoryEntity.class);
-            categories.add(CategoryEntity.toDomain(categoryEntity, subCategories));
-        });
+        List<SubCategoryEntity> subCategoryEntities = this.mongoTemplate.findAll(SubCategoryEntity.class);
+
+        System.out.println(subCategoryEntities.get(0));
+
 
         return categories;
     }
