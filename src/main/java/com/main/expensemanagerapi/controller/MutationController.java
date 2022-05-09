@@ -1,26 +1,16 @@
 package com.main.expensemanagerapi.controller;
 
 import com.main.expensemanagerapi.domain.Account;
-import com.main.expensemanagerapi.domain.AccountTransaction;
-import com.main.expensemanagerapi.domain.Organization;
-import com.main.expensemanagerapi.enums.AccountType;
-import com.main.expensemanagerapi.enums.TransactionType;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
 import com.main.expensemanagerapi.repository.AccountTransactionEntityRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.service.MutationService;
+import com.main.expensemanagerapi.types.CreateAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class MutationController {
@@ -58,4 +48,8 @@ public class MutationController {
         return this.mutationService.findAccounts(organizationId, authentication.getName());
     }
 
+    @PostMapping("/create-account")
+    public String createAccount(Authentication authentication, @RequestBody CreateAccount createAccount) {
+        return this.mutationService.createAccount(authentication.getName(), createAccount);
+    }
 }

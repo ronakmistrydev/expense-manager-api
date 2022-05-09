@@ -5,6 +5,7 @@ import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.enums.AccountType;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
+import com.main.expensemanagerapi.types.CreateAccount;
 import com.sun.jdi.request.InvalidRequestStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,9 +69,20 @@ public class MutationService {
         return this.accountEntityRepository.findByOrganizationId(organizationId);
     }
 
+    public String createAccount(String userSub, CreateAccount createAccount) {
+        Account account = new Account(
+                UUID.randomUUID().toString(),
+                createAccount.getOrganizationId(),
+                userSub,
+                Currency.getInstance(createAccount.getCurrency()),
+                createAccount.getName(),
+                createAccount.getType()
+        );
+        this.accountEntityRepository.save(account);
+        return account.getId();
+    }
+
     /*
-     * 1. get all accounts
-     * 2. create account
      * 3. update account
      * 4. different versions of account creation
      * 5. add validations

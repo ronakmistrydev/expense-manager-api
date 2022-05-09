@@ -1,7 +1,8 @@
 package com.main.expensemanagerapi.enums;
 
 public enum AccountType {
-    CREDIT_CARD("DEBIT"),
+    DEBIT("DEBIT"),
+    CREDIT_CARD("CREDIT_CARD"),
     GENERAL("GENERAL"),
     CASH("CASH"),
     CURRENT("CURRENT"),
