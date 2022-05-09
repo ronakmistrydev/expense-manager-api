@@ -105,6 +105,10 @@ public class MutationService {
         // todo:: check if to account belongs to given organization
         // todo:: check if given user belongs to an organization
         // todo :: check organization account and user have a relation or connection
+
+        // todo:: fix serialization issue for date
+        // todo:: fix created at logic
+        
         AccountTransaction accountTransaction = new AccountTransaction(
                 UUID.randomUUID().toString(),
                 createAccountRecord.getCategoryId(),
