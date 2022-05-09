@@ -15,6 +15,8 @@ import com.sun.jdi.request.InvalidRequestStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -103,13 +105,12 @@ public class MutationService {
         // todo:: check if to account belongs to given organization
         // todo:: check if given user belongs to an organization
         // todo :: check organization account and user have a relation or connection
-
         AccountTransaction accountTransaction = new AccountTransaction(
                 UUID.randomUUID().toString(),
                 createAccountRecord.getCategoryId(),
                 createAccountRecord.getAmount(),
                 Currency.getInstance(createAccountRecord.getCurrency()),
-                createAccountRecord.getDate(),
+                new Date(),
                 createAccountRecord.getNote(),
                 createAccountRecord.getPayee(),
                 createAccountRecord.getFromAccountId(),

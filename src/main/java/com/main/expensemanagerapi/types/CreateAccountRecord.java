@@ -1,9 +1,11 @@
 package com.main.expensemanagerapi.types;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.main.expensemanagerapi.enums.TransactionType;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class CreateAccountRecord {
     private final String categoryId;
@@ -14,13 +16,11 @@ public class CreateAccountRecord {
     private final String fromAccountId;
     private final String toAccountId;
     private final TransactionType type;
-
-    private final Date date;
-    private final Date time;
-
+    private final LocalDate date;
+    private final LocalTime time;
     private final String organizationId;
 
-    public CreateAccountRecord(String categoryId, BigDecimal amount, String currency, String note, String payee, String fromAccountId, String toAccountId, TransactionType type, Date date, Date time, String organizationId) {
+    public CreateAccountRecord(String categoryId, BigDecimal amount, String currency, String note, String payee, String fromAccountId, String toAccountId, TransactionType type, LocalDate date, LocalTime time, String organizationId) {
         this.categoryId = categoryId;
         this.amount = amount;
         this.currency = currency;
@@ -66,11 +66,11 @@ public class CreateAccountRecord {
         return type;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public Date getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
