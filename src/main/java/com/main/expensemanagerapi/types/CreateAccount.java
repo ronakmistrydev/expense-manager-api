@@ -3,7 +3,6 @@ package com.main.expensemanagerapi.types;
 import com.main.expensemanagerapi.enums.AccountType;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 
 public class CreateAccount {
     private final String name;
