@@ -3,6 +3,7 @@ package com.main.expensemanagerapi.entity;
 import com.main.expensemanagerapi.domain.SubCategory;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class SubCategoryEntity extends RootEntity {
 
@@ -44,12 +45,6 @@ public class SubCategoryEntity extends RootEntity {
     public static HashMap<String, SubCategoryEntity> toEntityMap(HashMap<String, SubCategory> subCategories) {
         HashMap<String, SubCategoryEntity> categoryHashMap = new HashMap<>();
         subCategories.forEach((key, value) -> categoryHashMap.put(key, SubCategoryEntity.toEntity(value)));
-        return categoryHashMap;
-    }
-
-    public static HashMap<String, SubCategory> toDomainMap( String parentId, HashMap<String, SubCategoryEntity> subCategories) {
-        HashMap<String, SubCategory> categoryHashMap = new HashMap<>();
-        subCategories.forEach((key, value) -> categoryHashMap.put(key, SubCategoryEntity.toDomain(parentId, value)));
         return categoryHashMap;
     }
 }

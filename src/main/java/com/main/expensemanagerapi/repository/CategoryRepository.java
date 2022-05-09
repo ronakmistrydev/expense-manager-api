@@ -2,12 +2,16 @@ package com.main.expensemanagerapi.repository;
 
 import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.entity.CategoryEntity;
+import com.main.expensemanagerapi.entity.SubCategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CategoryRepository implements EntityRepository<Category> {
@@ -23,10 +27,17 @@ public class CategoryRepository implements EntityRepository<Category> {
 
     @Override
     public List<Category> findAll() {
-        return this.mongoTemplate.findAll(CategoryEntity.class)
-                .stream()
-                .map(CategoryEntity::toDomain)
-                .collect(Collectors.toList());
+        List<Category> categories = new LinkedList<>();
+        List<CategoryEntity> categoryEntities = this.mongoTemplate.findAll(CategoryEntity.class);
+
+        categoryEntities.forEach((categoryEntity) -> {
+            Query query = new Query();
+            query.addCriteria(Criteria.where("parentId").is(categoryEntity.getId()));
+            List<SubCategoryEntity> subCategories = this.mongoTemplate.find(query, SubCategoryEntity.class);
+            categories.add(CategoryEntity.toDomain(categoryEntity, subCategories));
+        });
+
+        return categories;
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.main.expensemanagerapi.entity;
 
 import com.main.expensemanagerapi.domain.Category;
+import com.main.expensemanagerapi.domain.SubCategory;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Document("category")
 public class CategoryEntity extends RootEntity {
@@ -42,11 +44,17 @@ public class CategoryEntity extends RootEntity {
         );
     }
 
-    public static Category toDomain(CategoryEntity entity) {
+    public static Category toDomain(CategoryEntity entity, List<SubCategoryEntity> subCategoryEntities) {
+        HashMap<String, SubCategory> subCategoryHashMap = new HashMap<>();
+
+        subCategoryEntities
+                .forEach((value) -> subCategoryHashMap.put(entity.getId(), SubCategoryEntity.toDomain(entity.getId(), value)));
+
         return new Category(
                 entity.getId(),
                 entity.getName(),
-                entity.getCreatedBy()
+                entity.getCreatedBy(),
+                subCategoryHashMap
         );
     }
 }
