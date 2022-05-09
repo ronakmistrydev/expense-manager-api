@@ -5,10 +5,13 @@ import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.enums.AccountType;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
+import com.sun.jdi.request.InvalidRequestStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Currency;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -25,6 +28,8 @@ public class MutationService {
         this.accountEntityRepository = accountEntityRepository;
     }
 
+    // dfcb6a93-11f4-431c-bcd2-4c906d0323d9 - org id
+
     public String register(String userSub) {
         boolean isAlreadyExists = this.organizationEntityRepository.hasOrganizationByUserSub(userSub);
         if (isAlreadyExists) return this.organizationEntityRepository.getByUserSub(userSub).getId();
@@ -36,7 +41,6 @@ public class MutationService {
         Account savingsAccount = new Account(
                 UUID.randomUUID().toString(),
                 organizationId,
-                0L,
                 "SYSTEM",
                 Currency.getInstance("USD"),
                 "Savings Account",
@@ -46,7 +50,6 @@ public class MutationService {
         Account generalAccount = new Account(
                 UUID.randomUUID().toString(),
                 organizationId,
-                0L,
                 "SYSTEM",
                 Currency.getInstance("USD"),
                 "General Account",
@@ -57,4 +60,28 @@ public class MutationService {
         accountEntityRepository.save(generalAccount);
         return organizationId;
     }
+
+    public List<Account> findAccounts(String organizationId, String userSub) {
+        boolean isAlreadyExists = this.organizationEntityRepository.hasOrganizationByUserSub(userSub);
+        String storedOrganizationId = this.organizationEntityRepository.getByUserSub(userSub).getId();
+        if (!Objects.equals(storedOrganizationId, organizationId)) throw new InvalidRequestStateException("Organization does not belongs to this user");
+        return this.accountEntityRepository.findByOrganizationId(organizationId);
+    }
+
+    /*
+     * 1. get all accounts
+     * 2. create account
+     * 3. update account
+     * 4. different versions of account creation
+     * 5. add validations
+     * 6. get all categories
+     * 7. create record
+     * 8. get all records
+     * 9. update records
+     * 10. add payee
+     * 11. update payee
+     * 12. get all payee
+     * 13. add friends
+     * 14. add portion with friends on a record
+     */
 }

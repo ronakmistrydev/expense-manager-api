@@ -15,7 +15,6 @@ public class Account {
     public Account(
         String id,
         String organizationId,
-        Long balance,
         String createdBy,
         Currency currency,
         String name,

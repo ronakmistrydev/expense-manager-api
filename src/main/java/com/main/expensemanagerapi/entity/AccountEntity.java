@@ -37,4 +37,35 @@ public class AccountEntity extends RootEntity {
             account.getType()
         );
     }
+
+    public static Account toDomain(AccountEntity accountEntity) {
+        return new Account(
+                accountEntity.getId(),
+                accountEntity.getOrganizationId(),
+                accountEntity.getCreatedBy(),
+                accountEntity.getCurrency(),
+                accountEntity.getName(),
+                accountEntity.getType()
+        );
+    }
+
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
 }
