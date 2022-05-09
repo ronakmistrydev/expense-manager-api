@@ -1,12 +1,13 @@
 package com.main.expensemanagerapi.repository;
 
 import com.main.expensemanagerapi.domain.Category;
+import com.main.expensemanagerapi.entity.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CategoryRepository implements EntityRepository<Category> {
@@ -21,8 +22,10 @@ public class CategoryRepository implements EntityRepository<Category> {
 
     @Override
     public List<Category> findAll() {
-        List<Category> categories = new LinkedList<>();
-        return categories;
+        return mongoTemplate.findAll(CategoryEntity.class)
+                .stream()
+                .map(CategoryEntity::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
