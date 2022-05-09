@@ -63,13 +63,17 @@ public class MutationService {
     }
 
     public List<Account> findAccounts(String organizationId, String userSub) {
-        boolean isAlreadyExists = this.organizationEntityRepository.hasOrganizationByUserSub(userSub);
+        // todo:: check if organization belongs to this user
         String storedOrganizationId = this.organizationEntityRepository.getByUserSub(userSub).getId();
         if (!Objects.equals(storedOrganizationId, organizationId)) throw new InvalidRequestStateException("Organization does not belongs to this user");
         return this.accountEntityRepository.findByOrganizationId(organizationId);
     }
 
     public String createAccount(String userSub, CreateAccount createAccount) {
+        // todo:: check if organization belongs to this user
+        // todo:: check if duplicate - (name, type)
+        // todo:: get balance from payload and create initial record under this account
+        // todo:: account type specific logic should belongs to sub-class for each type of account (SavingsAccount, CheckIn account etc..)
         Account account = new Account(
                 UUID.randomUUID().toString(),
                 createAccount.getOrganizationId(),
@@ -83,7 +87,6 @@ public class MutationService {
     }
 
     /*
-     * 3. update account
      * 4. different versions of account creation
      * 5. add validations
      * 6. get all categories
@@ -95,5 +98,9 @@ public class MutationService {
      * 12. get all payee
      * 13. add friends
      * 14. add portion with friends on a record
+     *
+     *
+     * Nice to have
+     * 1. update account (name and type)
      */
 }
