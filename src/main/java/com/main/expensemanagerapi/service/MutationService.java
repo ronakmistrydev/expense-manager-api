@@ -1,38 +1,41 @@
 package com.main.expensemanagerapi.service;
 
+import com.main.expensemanagerapi.domain.AccountTransaction;
 import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.enums.AccountType;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
+import com.main.expensemanagerapi.repository.AccountTransactionEntityRepository;
 import com.main.expensemanagerapi.repository.CategoryRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.types.CreateAccount;
+import com.main.expensemanagerapi.types.CreateAccountRecord;
 import com.sun.jdi.request.InvalidRequestStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Currency;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class MutationService {
     private final OrganizationEntityRepository organizationEntityRepository;
     private final AccountEntityRepository accountEntityRepository;
-
     private final CategoryRepository categoryRepository;
+
+    private final AccountTransactionEntityRepository accountTransactionEntityRepository;
 
     @Autowired
     public MutationService(
         OrganizationEntityRepository organizationEntityRepository,
         AccountEntityRepository accountEntityRepository,
-        CategoryRepository categoryRepository
+        CategoryRepository categoryRepository,
+        AccountTransactionEntityRepository accountTransactionEntityRepository
     ) {
         this.organizationEntityRepository = organizationEntityRepository;
         this.accountEntityRepository = accountEntityRepository;
         this.categoryRepository = categoryRepository;
+        this.accountTransactionEntityRepository = accountTransactionEntityRepository;
     }
 
     // dfcb6a93-11f4-431c-bcd2-4c906d0323d9 - org id
@@ -96,7 +99,26 @@ public class MutationService {
         return this.categoryRepository.findAll();
     }
 
-    public void createRecord() {}
+    public String createRecord(String userSub, CreateAccountRecord createAccountRecord) {
+        // todo:: check if to account belongs to given organization
+        // todo:: check if given user belongs to an organization
+        // todo :: check organization account and user have a relation or connection
+
+        AccountTransaction accountTransaction = new AccountTransaction(
+                UUID.randomUUID().toString(),
+                createAccountRecord.getCategoryId(),
+                createAccountRecord.getAmount(),
+                Currency.getInstance(createAccountRecord.getCurrency()),
+                createAccountRecord.getDate(),
+                createAccountRecord.getNote(),
+                createAccountRecord.getPayee(),
+                createAccountRecord.getFromAccountId(),
+                createAccountRecord.getToAccountId(),
+                createAccountRecord.getType()
+        );
+        this.accountTransactionEntityRepository.save(accountTransaction);
+        return accountTransaction.getId();
+    }
 
     public void findRecords() {}
 
