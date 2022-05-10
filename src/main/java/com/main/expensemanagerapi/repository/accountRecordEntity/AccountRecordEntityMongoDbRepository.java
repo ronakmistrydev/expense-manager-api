@@ -1,4 +1,5 @@
-package com.main.expensemanagerapi.repository;
+package com.main.expensemanagerapi.repository.accountRecordEntity;
+
 
 import com.main.expensemanagerapi.domain.AccountRecord;
 import com.main.expensemanagerapi.entity.AccountEntity;
@@ -8,18 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class AccountRecordEntityRepository implements EntityRepository<AccountRecord> {
+@Repository
+public class AccountRecordEntityMongoDbRepository implements AccountRecordEntityRepository {
 
     private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public AccountRecordEntityRepository(MongoTemplate mongoTemplate) {
+    public AccountRecordEntityMongoDbRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
@@ -35,10 +36,11 @@ public class AccountRecordEntityRepository implements EntityRepository<AccountRe
         mongoTemplate.save(AccountRecordEntity.toEntity(accountRecord));
     }
 
-    public List<AccountRecord> findByOrganization(final String organizationId) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("organizationId").is(organizationId));
-        List<String> accountIds = this.mongoTemplate.find(query, AccountEntity.class)
+    @Override
+    public List<AccountRecord> findByOrganizationId(String organizationId) {
+        Query accountEntityQuery = new Query();
+        accountEntityQuery.addCriteria(Criteria.where("organizationId").is(organizationId));
+        List<String> accountIds = this.mongoTemplate.find(accountEntityQuery, AccountEntity.class)
                 .stream().map(RootEntity::getId)
                 .collect(Collectors.toList());
 

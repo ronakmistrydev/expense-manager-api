@@ -5,10 +5,10 @@ import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.enums.AccountType;
-import com.main.expensemanagerapi.repository.AccountRecordEntityRepository;
 import com.main.expensemanagerapi.repository.CategoryRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.repository.accountEntity.AccountEntityRepository;
+import com.main.expensemanagerapi.repository.accountRecordEntity.AccountRecordEntityRepository;
 import com.main.expensemanagerapi.types.CreateAccount;
 import com.main.expensemanagerapi.types.CreateAccountRecord;
 import com.main.expensemanagerapi.types.UpdateAccountRecord;
@@ -110,7 +110,7 @@ public class MutationService {
     }
 
     public List<AccountRecord> findRecords(String organizationId, String userSub) {
-        return this.accountRecordEntityRepository.findByOrganization(organizationId);
+        return this.accountRecordEntityRepository.findByOrganizationId(organizationId);
     }
 
     public String updateRecord(String userSub, UpdateAccountRecord updateAccountRecord) {
