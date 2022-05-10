@@ -5,10 +5,10 @@ import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.enums.AccountType;
-import com.main.expensemanagerapi.repository.CategoryRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.repository.accountEntity.AccountEntityRepository;
 import com.main.expensemanagerapi.repository.accountRecordEntity.AccountRecordEntityRepository;
+import com.main.expensemanagerapi.repository.categoryEntity.CategoryEntityRepository;
 import com.main.expensemanagerapi.types.CreateAccount;
 import com.main.expensemanagerapi.types.CreateAccountRecord;
 import com.main.expensemanagerapi.types.UpdateAccountRecord;
@@ -22,19 +22,19 @@ import java.util.*;
 public class MutationService {
     private final AccountEntityRepository accountEntityRepository;
     private final AccountRecordEntityRepository accountRecordEntityRepository;
-    private final CategoryRepository categoryRepository;
+    private final CategoryEntityRepository categoryEntityRepository;
     private final OrganizationEntityRepository organizationEntityRepository;
 
     @Autowired
     public MutationService(
         AccountEntityRepository accountEntityRepository,
         AccountRecordEntityRepository accountRecordEntityRepository,
-        CategoryRepository categoryRepository,
+        CategoryEntityRepository categoryEntityRepository,
         OrganizationEntityRepository organizationEntityRepository
     ) {
         this.organizationEntityRepository = organizationEntityRepository;
         this.accountEntityRepository = accountEntityRepository;
-        this.categoryRepository = categoryRepository;
+        this.categoryEntityRepository = categoryEntityRepository;
         this.accountRecordEntityRepository = accountRecordEntityRepository;
     }
 
@@ -89,7 +89,7 @@ public class MutationService {
     }
 
     public List<Category> findCategories() {
-        return this.categoryRepository.findAll();
+        return this.categoryEntityRepository.findAll();
     }
 
     public String createRecord(String userSub, CreateAccountRecord createAccountRecord) {
