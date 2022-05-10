@@ -13,16 +13,14 @@ public class AccountEntity extends RootEntity {
     private final String organizationId;
     private final String createdBy;
 
-    private final BigDecimal balance;
     private Currency currency;
     private String name;
     private AccountType type;
 
-    public AccountEntity(String id, String organizationId, String createdBy, BigDecimal balance, Currency currency, String name, AccountType type) {
+    public AccountEntity(String id, String organizationId, String createdBy, Currency currency, String name, AccountType type) {
         super(id);
         this.organizationId = organizationId;
         this.createdBy = createdBy;
-        this.balance = balance;
         this.currency = currency;
         this.name = name;
         this.type = type;
@@ -33,7 +31,6 @@ public class AccountEntity extends RootEntity {
             account.getId(),
             account.getOrganizationId(),
             account.getCreatedBy(),
-            account.getBalance(),
             account.getCurrency(),
             account.getName(),
             account.getType()
@@ -44,7 +41,19 @@ public class AccountEntity extends RootEntity {
         return new Account(
                 entity.getId(),
                 entity.getOrganizationId(),
-                entity.getBalance(),
+                BigDecimal.ZERO,
+                entity.getCreatedBy(),
+                entity.getCurrency(),
+                entity.getName(),
+                entity.getType()
+        );
+    }
+
+    public static Account toDomain(AccountEntity entity, BigDecimal balance) {
+        return new Account(
+                entity.getId(),
+                entity.getOrganizationId(),
+                balance,
                 entity.getCreatedBy(),
                 entity.getCurrency(),
                 entity.getName(),
@@ -58,10 +67,6 @@ public class AccountEntity extends RootEntity {
 
     public String getCreatedBy() {
         return createdBy;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
     }
 
     public Currency getCurrency() {

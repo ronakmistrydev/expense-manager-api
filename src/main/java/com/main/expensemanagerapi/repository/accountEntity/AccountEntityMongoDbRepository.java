@@ -1,15 +1,18 @@
 package com.main.expensemanagerapi.repository.accountEntity;
 
+import com.main.expensemanagerapi.domain.AccountRecord;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.entity.AccountEntity;
+import com.main.expensemanagerapi.entity.AccountRecordEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class AccountEntityMongoDbRepository implements AccountEntityRepository {
@@ -25,7 +28,17 @@ public class AccountEntityMongoDbRepository implements AccountEntityRepository {
     public Account getById(final String id) {
         AccountEntity account = this.mongoTemplate.findById(id, AccountEntity.class);
         assert account != null;
-        return AccountEntity.toDomain(account);
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("fromAccountId").is(id));
+        List<AccountRecordEntity> accountRecordEntities = this.mongoTemplate.find(query, AccountRecordEntity.class);
+
+        BigDecimal balance = accountRecordEntities
+                .stream()
+                .map(AccountRecordEntity::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return AccountEntity.toDomain(account, balance);
     }
 
     @Override
@@ -35,11 +48,11 @@ public class AccountEntityMongoDbRepository implements AccountEntityRepository {
 
     @Override
     public List<Account> findByOrganizationId(String organizationId) {
+        LinkedList<Account> accounts = new LinkedList<>();
         Query query = new Query();
         query.addCriteria(Criteria.where("organizationId").is(organizationId));
-        return this.mongoTemplate.find(query, AccountEntity.class)
-                .stream()
-                .map(AccountEntity::toDomain)
-                .collect(Collectors.toList());
+        List<String> accountIds = this.mongoTemplate.find(query, AccountEntity.class).stream().map(AccountEntity::getId).toList();
+        for (String accountId : accountIds) accounts.add(this.getById(accountId));
+        return accounts;
     }
 }
