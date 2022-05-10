@@ -16,6 +16,7 @@ import com.sun.jdi.request.InvalidRequestStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -32,7 +33,6 @@ public class MutationService {
         CategoryEntityRepository categoryEntityRepository,
         OrganizationEntityRepository organizationEntityRepository
     ) {
-
         this.accountEntityRepository = accountEntityRepository;
         this.accountRecordEntityRepository = accountRecordEntityRepository;
         this.categoryEntityRepository = categoryEntityRepository;
@@ -50,6 +50,7 @@ public class MutationService {
         Account savingsAccount = new Account(
                 UUID.randomUUID().toString(),
                 organizationId,
+                BigDecimal.ZERO,
                 "SYSTEM",
                 Currency.getInstance("USD"),
                 "Savings Account",
@@ -59,6 +60,7 @@ public class MutationService {
         Account generalAccount = new Account(
                 UUID.randomUUID().toString(),
                 organizationId,
+                BigDecimal.ZERO,
                 "SYSTEM",
                 Currency.getInstance("USD"),
                 "General Account",
@@ -71,22 +73,24 @@ public class MutationService {
     }
 
     public List<Account> findAccounts(String organizationId, String userSub) {
-        String storedOrganizationId = this.organizationEntityRepository.getByUserSub(userSub).getId();
-        if (!Objects.equals(storedOrganizationId, organizationId)) throw new InvalidRequestStateException("Organization does not belongs to this user");
+        this.throwIfInvalidOrganization(organizationId, userSub);
         return this.accountEntityRepository.findByOrganizationId(organizationId);
     }
 
     public String createAccount(String userSub, CreateAccount createAccount) {
+        this.throwIfInvalidOrganization(createAccount.getOrganizationId(), userSub);
+        String accountId = UUID.randomUUID().toString();
         Account account = new Account(
-                UUID.randomUUID().toString(),
+                accountId,
                 createAccount.getOrganizationId(),
+                createAccount.getBalance(),
                 userSub,
                 Currency.getInstance(createAccount.getCurrency()),
                 createAccount.getName(),
                 createAccount.getType()
         );
         this.accountEntityRepository.save(account);
-        return account.getId();
+        return accountId;
     }
 
     public List<Category> findCategories() {
@@ -129,5 +133,10 @@ public class MutationService {
         );
         this.accountRecordEntityRepository.save(accountRecord);
         return accountRecord.getId();
+    }
+
+    private void throwIfInvalidOrganization(final String organizationId, final String userSub) {
+        String dbOrganizationId = this.organizationEntityRepository.getByUserSub(userSub).getId();
+        if (!Objects.equals(dbOrganizationId, organizationId)) throw new InvalidRequestStateException("Organization does not belongs to this user");
     }
 }

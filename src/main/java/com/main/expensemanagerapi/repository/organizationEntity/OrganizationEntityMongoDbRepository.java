@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrganizationEntityMongoDbRepository implements OrganizationEntityRepository {
 
-
     private final MongoTemplate mongoTemplate;
 
     @Autowired

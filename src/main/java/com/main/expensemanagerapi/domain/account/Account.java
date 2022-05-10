@@ -2,11 +2,14 @@ package com.main.expensemanagerapi.domain.account;
 
 import com.main.expensemanagerapi.enums.AccountType;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 
 public class Account {
     private final String id;
     private final String organizationId;
+
+    private final BigDecimal balance;
     private final String createdBy;
     private Currency currency;
     private String name;
@@ -15,6 +18,7 @@ public class Account {
     public Account(
         String id,
         String organizationId,
+        BigDecimal balance,
         String createdBy,
         Currency currency,
         String name,
@@ -22,6 +26,7 @@ public class Account {
     ) {
         this.id = id;
         this.organizationId = organizationId;
+        this.balance = balance;
         this.createdBy = createdBy;
         this.currency = currency;
         this.name = name;
@@ -34,6 +39,10 @@ public class Account {
 
     public String getOrganizationId() {
         return organizationId;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
     }
 
     public String getCreatedBy() {
