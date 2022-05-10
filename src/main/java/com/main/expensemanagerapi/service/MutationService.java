@@ -5,10 +5,10 @@ import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.enums.AccountType;
-import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.repository.accountEntity.AccountEntityRepository;
 import com.main.expensemanagerapi.repository.accountRecordEntity.AccountRecordEntityRepository;
 import com.main.expensemanagerapi.repository.categoryEntity.CategoryEntityRepository;
+import com.main.expensemanagerapi.repository.organizationEntity.OrganizationEntityRepository;
 import com.main.expensemanagerapi.types.CreateAccount;
 import com.main.expensemanagerapi.types.CreateAccountRecord;
 import com.main.expensemanagerapi.types.UpdateAccountRecord;
@@ -32,10 +32,11 @@ public class MutationService {
         CategoryEntityRepository categoryEntityRepository,
         OrganizationEntityRepository organizationEntityRepository
     ) {
-        this.organizationEntityRepository = organizationEntityRepository;
+
         this.accountEntityRepository = accountEntityRepository;
-        this.categoryEntityRepository = categoryEntityRepository;
         this.accountRecordEntityRepository = accountRecordEntityRepository;
+        this.categoryEntityRepository = categoryEntityRepository;
+        this.organizationEntityRepository = organizationEntityRepository;
     }
 
     public String register(String userSub) {

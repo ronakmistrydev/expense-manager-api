@@ -1,4 +1,4 @@
-package com.main.expensemanagerapi.repository;
+package com.main.expensemanagerapi.repository.organizationEntity;
 
 import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.entity.OrganizationEntity;
@@ -8,16 +8,14 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
-public class OrganizationEntityRepository implements EntityRepository<Organization> {
+public class OrganizationEntityMongoDbRepository implements OrganizationEntityRepository {
 
 
     private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public OrganizationEntityRepository(MongoTemplate mongoTemplate) {
+    public OrganizationEntityMongoDbRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
@@ -33,6 +31,7 @@ public class OrganizationEntityRepository implements EntityRepository<Organizati
         mongoTemplate.save(OrganizationEntity.toEntity(organization));
     }
 
+    @Override
     public Organization getByUserSub(String userSub) {
         Query query = new Query();
         query.addCriteria(Criteria.where("owner.sub").is(userSub));
@@ -41,6 +40,7 @@ public class OrganizationEntityRepository implements EntityRepository<Organizati
         return OrganizationEntity.toDomain(organizationEntity);
     }
 
+    @Override
     public boolean hasOrganizationByUserSub(String userSub) {
         Query query = new Query();
         query.addCriteria(Criteria.where("owner.sub").is(userSub));
