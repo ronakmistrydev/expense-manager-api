@@ -1,12 +1,12 @@
 package com.main.expensemanagerapi.service;
 
-import com.main.expensemanagerapi.domain.AccountTransaction;
+import com.main.expensemanagerapi.domain.AccountRecord;
 import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.enums.AccountType;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
-import com.main.expensemanagerapi.repository.AccountTransactionEntityRepository;
+import com.main.expensemanagerapi.repository.AccountRecordEntityRepository;
 import com.main.expensemanagerapi.repository.CategoryRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.types.CreateAccount;
@@ -16,8 +16,6 @@ import com.sun.jdi.request.InvalidRequestStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -26,19 +24,19 @@ public class MutationService {
     private final AccountEntityRepository accountEntityRepository;
     private final CategoryRepository categoryRepository;
 
-    private final AccountTransactionEntityRepository accountTransactionEntityRepository;
+    private final AccountRecordEntityRepository accountRecordEntityRepository;
 
     @Autowired
     public MutationService(
         OrganizationEntityRepository organizationEntityRepository,
         AccountEntityRepository accountEntityRepository,
         CategoryRepository categoryRepository,
-        AccountTransactionEntityRepository accountTransactionEntityRepository
+        AccountRecordEntityRepository accountRecordEntityRepository
     ) {
         this.organizationEntityRepository = organizationEntityRepository;
         this.accountEntityRepository = accountEntityRepository;
         this.categoryRepository = categoryRepository;
-        this.accountTransactionEntityRepository = accountTransactionEntityRepository;
+        this.accountRecordEntityRepository = accountRecordEntityRepository;
     }
 
     // dfcb6a93-11f4-431c-bcd2-4c906d0323d9 - org id
@@ -110,7 +108,7 @@ public class MutationService {
         // todo:: fix serialization issue for date
         // todo:: fix created at logic
 
-        AccountTransaction accountTransaction = new AccountTransaction(
+        AccountRecord accountRecord = new AccountRecord(
                 UUID.randomUUID().toString(),
                 createAccountRecord.getCategoryId(),
                 createAccountRecord.getAmount(),
@@ -122,13 +120,13 @@ public class MutationService {
                 createAccountRecord.getToAccountId(),
                 createAccountRecord.getType()
         );
-        this.accountTransactionEntityRepository.save(accountTransaction);
-        return accountTransaction.getId();
+        this.accountRecordEntityRepository.save(accountRecord);
+        return accountRecord.getId();
     }
 
-    public List<AccountTransaction> findRecords(String organizationId, String userSub) {
+    public List<AccountRecord> findRecords(String organizationId, String userSub) {
         // todo:: check if account belongs to given organization
-        return this.accountTransactionEntityRepository.findByOrganization(organizationId);
+        return this.accountRecordEntityRepository.findByOrganization(organizationId);
     }
 
     public String updateRecord(String userSub, UpdateAccountRecord updateAccountRecord) {
@@ -136,7 +134,7 @@ public class MutationService {
         // todo:: check if account belongs to given organization
         // todo:: check if user belongs to given organization
 
-        AccountTransaction accountTransaction = new AccountTransaction(
+        AccountRecord accountRecord = new AccountRecord(
                 UUID.randomUUID().toString(),
                 updateAccountRecord.getCategoryId(),
                 updateAccountRecord.getAmount(),
@@ -148,8 +146,8 @@ public class MutationService {
                 updateAccountRecord.getToAccountId(),
                 updateAccountRecord.getType()
         );
-        this.accountTransactionEntityRepository.save(accountTransaction);
-        return accountTransaction.getId();
+        this.accountRecordEntityRepository.save(accountRecord);
+        return accountRecord.getId();
     }
 
 

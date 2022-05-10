@@ -1,15 +1,15 @@
 package com.main.expensemanagerapi.entity;
 
-import com.main.expensemanagerapi.domain.AccountTransaction;
-import com.main.expensemanagerapi.enums.TransactionType;
+import com.main.expensemanagerapi.domain.AccountRecord;
+import com.main.expensemanagerapi.enums.RecordType;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-@Document("accountTransaction")
-public class AccountTransactionEntity extends RootEntity {
+@Document("accountRecord")
+public class AccountRecordEntity extends RootEntity {
 
     private String categoryId;
     private BigDecimal amount;
@@ -18,9 +18,9 @@ public class AccountTransactionEntity extends RootEntity {
     private String payee;
     private String fromAccountId;
     private String toAccountId;
-    private TransactionType type;
+    private RecordType type;
 
-    public AccountTransactionEntity(
+    public AccountRecordEntity(
         String id,
         String categoryId,
         BigDecimal amount,
@@ -30,7 +30,7 @@ public class AccountTransactionEntity extends RootEntity {
         String payee,
         String fromAccountId,
         String toAccountId,
-        TransactionType type
+        RecordType type
     ) {
         super(id);
         this.categoryId = categoryId;
@@ -73,27 +73,27 @@ public class AccountTransactionEntity extends RootEntity {
         return toAccountId;
     }
 
-    public TransactionType getType() {
+    public RecordType getType() {
         return type;
     }
 
-    public static AccountTransactionEntity toEntity(AccountTransaction accountTransaction) {
-        return new AccountTransactionEntity(
-            accountTransaction.getId(),
-            accountTransaction.getCategoryId(),
-            accountTransaction.getAmount(),
-            accountTransaction.getCurrency(),
-            accountTransaction.getCreatedAt(),
-            accountTransaction.getNote(),
-            accountTransaction.getPayee(),
-            accountTransaction.getFromAccountId(),
-            accountTransaction.getToAccountId(),
-            accountTransaction.getType()
+    public static AccountRecordEntity toEntity(AccountRecord accountRecord) {
+        return new AccountRecordEntity(
+            accountRecord.getId(),
+            accountRecord.getCategoryId(),
+            accountRecord.getAmount(),
+            accountRecord.getCurrency(),
+            accountRecord.getCreatedAt(),
+            accountRecord.getNote(),
+            accountRecord.getPayee(),
+            accountRecord.getFromAccountId(),
+            accountRecord.getToAccountId(),
+            accountRecord.getType()
         );
     }
 
-    public static AccountTransaction toDomain(AccountTransactionEntity entity) {
-        return new AccountTransaction(
+    public static AccountRecord toDomain(AccountRecordEntity entity) {
+        return new AccountRecord(
           entity.getId(),
           entity.getCategoryId(),
           entity.getAmount(),

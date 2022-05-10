@@ -1,6 +1,6 @@
 package com.main.expensemanagerapi.enums;
 
-public enum TransactionType {
+public enum RecordType {
     INCOME,
     EXPENSE,
     TRANSFER;

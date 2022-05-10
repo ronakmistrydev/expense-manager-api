@@ -1,13 +1,13 @@
 package com.main.expensemanagerapi.domain;
 
-import com.main.expensemanagerapi.dto.AccountTransactionDto;
-import com.main.expensemanagerapi.enums.TransactionType;
+import com.main.expensemanagerapi.dto.AccountRecordDto;
+import com.main.expensemanagerapi.enums.RecordType;
 
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-public class AccountTransaction {
+public class AccountRecord {
 
     private String id;
     private String categoryId;
@@ -18,11 +18,11 @@ public class AccountTransaction {
     private String payee;
     private String fromAccountId;
     private String toAccountId;
-    private TransactionType type;
+    private RecordType type;
 
-    //TODO:: add transaction users
+    //TODO:: add record users
 
-    public AccountTransaction(
+    public AccountRecord(
         String id,
         String categoryId,
         BigDecimal amount,
@@ -32,7 +32,7 @@ public class AccountTransaction {
         String payee,
         String fromAccountId,
         String toAccountId,
-        TransactionType type
+        RecordType type
     ) {
         this.id = id;
         this.categoryId = categoryId;
@@ -46,10 +46,10 @@ public class AccountTransaction {
         this.type = type;
     }
 
-    public AccountTransaction(
+    public AccountRecord(
         String id,
         Date createdAt,
-        AccountTransactionDto dto
+        AccountRecordDto dto
     ) {
         this.id = id;
         this.categoryId = dto.getCategoryId();
@@ -98,7 +98,7 @@ public class AccountTransaction {
         return toAccountId;
     }
 
-    public TransactionType getType() {
+    public RecordType getType() {
         return type;
     }
 }

@@ -1,10 +1,10 @@
 package com.main.expensemanagerapi.controller;
 
-import com.main.expensemanagerapi.domain.AccountTransaction;
+import com.main.expensemanagerapi.domain.AccountRecord;
 import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
-import com.main.expensemanagerapi.repository.AccountTransactionEntityRepository;
+import com.main.expensemanagerapi.repository.AccountRecordEntityRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.service.MutationService;
 import com.main.expensemanagerapi.types.CreateAccount;
@@ -20,7 +20,7 @@ import java.util.List;
 public class MutationController {
     private final OrganizationEntityRepository organizationEntityRepository;
     private final AccountEntityRepository accountEntityRepository;
-    private final AccountTransactionEntityRepository accountTransactionEntityRepository;
+    private final AccountRecordEntityRepository accountRecordEntityRepository;
 
     private final MutationService mutationService;
 
@@ -28,12 +28,12 @@ public class MutationController {
     public MutationController(
         OrganizationEntityRepository organizationEntityRepository,
         AccountEntityRepository accountEntityRepository,
-        AccountTransactionEntityRepository accountTransactionEntityRepository,
+        AccountRecordEntityRepository accountRecordEntityRepository,
         MutationService mutationService
     ) {
         this.organizationEntityRepository = organizationEntityRepository;
         this.accountEntityRepository = accountEntityRepository;
-        this.accountTransactionEntityRepository = accountTransactionEntityRepository;
+        this.accountRecordEntityRepository = accountRecordEntityRepository;
         this.mutationService = mutationService;
     }
 
@@ -63,8 +63,8 @@ public class MutationController {
     }
 
     @PostMapping("/create-record")
-    public String createAccount(Authentication authentication, @RequestBody CreateAccountRecord accountTransaction) {
-        return this.mutationService.createRecord(authentication.getName(), accountTransaction);
+    public String createAccount(Authentication authentication, @RequestBody CreateAccountRecord accountRecord) {
+        return this.mutationService.createRecord(authentication.getName(), accountRecord);
     }
 
     @PutMapping("/update-record")
@@ -73,7 +73,7 @@ public class MutationController {
     }
 
     @GetMapping("/records")
-    public List<AccountTransaction> categories(Authentication authentication, @RequestParam final String organizationId) {
+    public List<AccountRecord> categories(Authentication authentication, @RequestParam final String organizationId) {
         return this.mutationService.findRecords(organizationId, authentication.getName());
     }
 

@@ -1,6 +1,6 @@
 package com.main.expensemanagerapi.types;
 
-import com.main.expensemanagerapi.enums.TransactionType;
+import com.main.expensemanagerapi.enums.RecordType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,12 +16,12 @@ public class UpdateAccountRecord {
     private final String payee;
     private final String fromAccountId;
     private final String toAccountId;
-    private final TransactionType type;
+    private final RecordType type;
     private final LocalDate date;
     private final LocalTime time;
     private final String organizationId;
 
-    public UpdateAccountRecord(String id, String categoryId, BigDecimal amount, String currency, String note, String payee, String fromAccountId, String toAccountId, TransactionType type, LocalDate date, LocalTime time, String organizationId) {
+    public UpdateAccountRecord(String id, String categoryId, BigDecimal amount, String currency, String note, String payee, String fromAccountId, String toAccountId, RecordType type, LocalDate date, LocalTime time, String organizationId) {
         this.id = id;
         this.categoryId = categoryId;
         this.amount = amount;
@@ -68,7 +68,7 @@ public class UpdateAccountRecord {
         return toAccountId;
     }
 
-    public TransactionType getType() {
+    public RecordType getType() {
         return type;
     }
 
