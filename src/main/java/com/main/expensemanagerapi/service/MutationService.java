@@ -18,11 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -125,16 +124,12 @@ public class MutationService {
     public String createRecord(String userSub, CreateAccountRecord createAccountRecord) {
         this.throwIfInvalidOrganization(createAccountRecord.getOrganizationId(), userSub);
         String accountRecordId = UUID.randomUUID().toString();
-
-        LocalDateTime localDateTime = LocalDateTime.of(createAccountRecord.getDate(), createAccountRecord.getTime());
-        Date createdAt = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-
         AccountRecord accountRecord = new AccountRecord(
                 accountRecordId,
                 createAccountRecord.getCategoryId(),
                 createAccountRecord.getAmount(),
                 Currency.getInstance(createAccountRecord.getCurrency()),
-                createdAt,
+                generateDate(createAccountRecord.getDate(), createAccountRecord.getTime()),
                 createAccountRecord.getNote(),
                 createAccountRecord.getPayee(),
                 createAccountRecord.getFromAccountId(),
@@ -150,12 +145,14 @@ public class MutationService {
     }
 
     public String updateRecord(String userSub, UpdateAccountRecord updateAccountRecord) {
+        this.throwIfInvalidOrganization(updateAccountRecord.getOrganizationId(), userSub);
+        String accountRecordId = updateAccountRecord.getId();
         AccountRecord accountRecord = new AccountRecord(
-                UUID.randomUUID().toString(),
+                accountRecordId,
                 updateAccountRecord.getCategoryId(),
                 updateAccountRecord.getAmount(),
                 Currency.getInstance(updateAccountRecord.getCurrency()),
-                new Date(),
+                generateDate(updateAccountRecord.getDate(), updateAccountRecord.getTime()),
                 updateAccountRecord.getNote(),
                 updateAccountRecord.getPayee(),
                 updateAccountRecord.getFromAccountId(),
@@ -163,11 +160,16 @@ public class MutationService {
                 updateAccountRecord.getType()
         );
         this.accountRecordEntityRepository.save(accountRecord);
-        return accountRecord.getId();
+        return accountRecordId;
     }
 
     private void throwIfInvalidOrganization(final String organizationId, final String userSub) {
         String dbOrganizationId = this.organizationEntityRepository.getByUserSub(userSub).getId();
         if (!Objects.equals(dbOrganizationId, organizationId)) throw new InvalidRequestStateException("Organization does not belongs to this user");
+    }
+
+    private Date generateDate(LocalDate date, LocalTime time) {
+        LocalDateTime localDateTime = LocalDateTime.of(date, time);
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 }
