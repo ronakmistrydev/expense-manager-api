@@ -12,10 +12,9 @@ public class AccountEntity extends RootEntity {
 
     private final String organizationId;
     private final String createdBy;
-
-    private Currency currency;
-    private String name;
-    private AccountType type;
+    private final Currency currency;
+    private final String name;
+    private final AccountType type;
 
     public AccountEntity(String id, String organizationId, String createdBy, Currency currency, String name, AccountType type) {
         super(id);
@@ -34,18 +33,6 @@ public class AccountEntity extends RootEntity {
             account.getCurrency(),
             account.getName(),
             account.getType()
-        );
-    }
-
-    public static Account toDomain(AccountEntity entity) {
-        return new Account(
-                entity.getId(),
-                entity.getOrganizationId(),
-                BigDecimal.ZERO,
-                entity.getCreatedBy(),
-                entity.getCurrency(),
-                entity.getName(),
-                entity.getType()
         );
     }
 

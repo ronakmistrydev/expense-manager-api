@@ -1,6 +1,5 @@
 package com.main.expensemanagerapi.repository.accountEntity;
 
-import com.main.expensemanagerapi.domain.AccountRecord;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.entity.AccountEntity;
 import com.main.expensemanagerapi.entity.AccountRecordEntity;
