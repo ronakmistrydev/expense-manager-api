@@ -108,7 +108,7 @@ public class MutationService {
 
         // todo:: fix serialization issue for date
         // todo:: fix created at logic
-        
+
         AccountTransaction accountTransaction = new AccountTransaction(
                 UUID.randomUUID().toString(),
                 createAccountRecord.getCategoryId(),
@@ -125,7 +125,10 @@ public class MutationService {
         return accountTransaction.getId();
     }
 
-    public void findRecords() {}
+    public List<AccountTransaction> findRecords(String organizationId, String userSub) {
+        // todo:: check if account belongs to given organization
+        return this.accountTransactionEntityRepository.findByOrganization(organizationId);
+    }
 
     public void updateRecord() {}
 

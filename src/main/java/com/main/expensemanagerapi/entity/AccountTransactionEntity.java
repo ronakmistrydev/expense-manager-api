@@ -45,6 +45,38 @@ public class AccountTransactionEntity extends RootEntity {
         this.updatedAt = new Date();
     }
 
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public String getPayee() {
+        return payee;
+    }
+
+    public String getFromAccountId() {
+        return fromAccountId;
+    }
+
+    public String getToAccountId() {
+        return toAccountId;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
     public static AccountTransactionEntity toEntity(AccountTransaction accountTransaction) {
         return new AccountTransactionEntity(
             accountTransaction.getId(),
@@ -57,6 +89,21 @@ public class AccountTransactionEntity extends RootEntity {
             accountTransaction.getFromAccountId(),
             accountTransaction.getToAccountId(),
             accountTransaction.getType()
+        );
+    }
+
+    public static AccountTransaction toDomain(AccountTransactionEntity entity) {
+        return new AccountTransaction(
+          entity.getId(),
+          entity.getCategoryId(),
+          entity.getAmount(),
+          entity.getCurrency(),
+          entity.getCreatedAt(),
+          entity.getNote(),
+          entity.getPayee(),
+          entity.getFromAccountId(),
+          entity.getToAccountId(),
+          entity.getType()
         );
     }
 }

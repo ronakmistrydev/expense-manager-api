@@ -1,5 +1,6 @@
 package com.main.expensemanagerapi.controller;
 
+import com.main.expensemanagerapi.domain.AccountTransaction;
 import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.repository.AccountEntityRepository;
@@ -63,6 +64,11 @@ public class MutationController {
     @PostMapping("/create-record")
     public String createAccount(Authentication authentication, @RequestBody CreateAccountRecord accountTransaction) {
         return this.mutationService.createRecord(authentication.getName(), accountTransaction);
+    }
+
+    @GetMapping("/records")
+    public List<AccountTransaction> categories(Authentication authentication, @RequestParam final String organizationId) {
+        return this.mutationService.findRecords(organizationId, authentication.getName());
     }
 
 }
