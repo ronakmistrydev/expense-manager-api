@@ -3,9 +3,6 @@ package com.main.expensemanagerapi.controller;
 import com.main.expensemanagerapi.domain.AccountRecord;
 import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.account.Account;
-import com.main.expensemanagerapi.repository.AccountEntityRepository;
-import com.main.expensemanagerapi.repository.AccountRecordEntityRepository;
-import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.service.MutationService;
 import com.main.expensemanagerapi.types.CreateAccount;
 import com.main.expensemanagerapi.types.CreateAccountRecord;
@@ -18,28 +15,11 @@ import java.util.List;
 
 @RestController
 public class MutationController {
-    private final OrganizationEntityRepository organizationEntityRepository;
-    private final AccountEntityRepository accountEntityRepository;
-    private final AccountRecordEntityRepository accountRecordEntityRepository;
-
     private final MutationService mutationService;
 
     @Autowired
-    public MutationController(
-        OrganizationEntityRepository organizationEntityRepository,
-        AccountEntityRepository accountEntityRepository,
-        AccountRecordEntityRepository accountRecordEntityRepository,
-        MutationService mutationService
-    ) {
-        this.organizationEntityRepository = organizationEntityRepository;
-        this.accountEntityRepository = accountEntityRepository;
-        this.accountRecordEntityRepository = accountRecordEntityRepository;
+    public MutationController(MutationService mutationService) {
         this.mutationService = mutationService;
-    }
-
-    @GetMapping("/hello")
-    public String greetings(Authentication authentication) {
-        return authentication.getName();
     }
 
     @PostMapping("/register")
@@ -47,12 +27,12 @@ public class MutationController {
         return mutationService.register(authentication.getName());
     }
 
-    @GetMapping("/accounts-by-organization")
+    @GetMapping("/accountsByOrganization")
     public List<Account> accountsByOrganization(Authentication authentication, @RequestParam final String organizationId) {
         return this.mutationService.findAccounts(organizationId, authentication.getName());
     }
 
-    @PostMapping("/create-account")
+    @PostMapping("/createAccount")
     public String createAccount(Authentication authentication, @RequestBody CreateAccount createAccount) {
         return this.mutationService.createAccount(authentication.getName(), createAccount);
     }
@@ -62,12 +42,12 @@ public class MutationController {
         return this.mutationService.findCategories();
     }
 
-    @PostMapping("/create-record")
+    @PostMapping("/createRecord")
     public String createAccount(Authentication authentication, @RequestBody CreateAccountRecord accountRecord) {
         return this.mutationService.createRecord(authentication.getName(), accountRecord);
     }
 
-    @PutMapping("/update-record")
+    @PutMapping("/updateRecord")
     public String createAccount(Authentication authentication, @RequestBody UpdateAccountRecord updateAccountRecord) {
         return this.mutationService.updateRecord(authentication.getName(), updateAccountRecord);
     }
