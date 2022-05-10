@@ -11,6 +11,7 @@ import com.main.expensemanagerapi.repository.CategoryRepository;
 import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.types.CreateAccount;
 import com.main.expensemanagerapi.types.CreateAccountRecord;
+import com.main.expensemanagerapi.types.UpdateAccountRecord;
 import com.sun.jdi.request.InvalidRequestStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -130,7 +131,26 @@ public class MutationService {
         return this.accountTransactionEntityRepository.findByOrganization(organizationId);
     }
 
-    public void updateRecord() {}
+    public String updateRecord(String userSub, UpdateAccountRecord updateAccountRecord) {
+        // todo:: check if account record exists
+        // todo:: check if account belongs to given organization
+        // todo:: check if user belongs to given organization
+
+        AccountTransaction accountTransaction = new AccountTransaction(
+                UUID.randomUUID().toString(),
+                updateAccountRecord.getCategoryId(),
+                updateAccountRecord.getAmount(),
+                Currency.getInstance(updateAccountRecord.getCurrency()),
+                new Date(),
+                updateAccountRecord.getNote(),
+                updateAccountRecord.getPayee(),
+                updateAccountRecord.getFromAccountId(),
+                updateAccountRecord.getToAccountId(),
+                updateAccountRecord.getType()
+        );
+        this.accountTransactionEntityRepository.save(accountTransaction);
+        return accountTransaction.getId();
+    }
 
 
     /*

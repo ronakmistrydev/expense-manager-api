@@ -20,7 +20,9 @@ public class AccountTransactionEntityRepository implements EntityRepository<Acco
 
     @Override
     public AccountTransaction getById(String id) {
-        return null;
+        AccountTransactionEntity byId = mongoTemplate.findById(id, AccountTransactionEntity.class);
+        assert byId != null;
+        return AccountTransactionEntity.toDomain(byId);
     }
 
     @Override

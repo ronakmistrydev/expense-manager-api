@@ -9,6 +9,7 @@ import com.main.expensemanagerapi.repository.OrganizationEntityRepository;
 import com.main.expensemanagerapi.service.MutationService;
 import com.main.expensemanagerapi.types.CreateAccount;
 import com.main.expensemanagerapi.types.CreateAccountRecord;
+import com.main.expensemanagerapi.types.UpdateAccountRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +65,11 @@ public class MutationController {
     @PostMapping("/create-record")
     public String createAccount(Authentication authentication, @RequestBody CreateAccountRecord accountTransaction) {
         return this.mutationService.createRecord(authentication.getName(), accountTransaction);
+    }
+
+    @PutMapping("/update-record")
+    public String createAccount(Authentication authentication, @RequestBody UpdateAccountRecord updateAccountRecord) {
+        return this.mutationService.updateRecord(authentication.getName(), updateAccountRecord);
     }
 
     @GetMapping("/records")
