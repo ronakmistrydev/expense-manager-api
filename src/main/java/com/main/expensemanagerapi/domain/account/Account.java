@@ -8,12 +8,28 @@ import java.util.Currency;
 public class Account {
     private final String id;
     private final String organizationId;
-
     private final BigDecimal balance;
     private final String createdBy;
-    private Currency currency;
-    private String name;
-    private AccountType type;
+    private final Currency currency;
+    private final String name;
+    private final AccountType type;
+
+    public Account(
+            String id,
+            String organizationId,
+            String createdBy,
+            Currency currency,
+            String name,
+            AccountType type
+    ) {
+        this.id = id;
+        this.organizationId = organizationId;
+        this.createdBy = createdBy;
+        this.currency = currency;
+        this.name = name;
+        this.type = type;
+        this.balance = BigDecimal.ZERO;
+    }
 
     public Account(
         String id,

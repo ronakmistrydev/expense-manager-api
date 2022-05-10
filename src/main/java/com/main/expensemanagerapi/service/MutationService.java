@@ -5,6 +5,7 @@ import com.main.expensemanagerapi.domain.Category;
 import com.main.expensemanagerapi.domain.Organization;
 import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.enums.AccountType;
+import com.main.expensemanagerapi.enums.RecordType;
 import com.main.expensemanagerapi.repository.accountEntity.AccountEntityRepository;
 import com.main.expensemanagerapi.repository.accountRecordEntity.AccountRecordEntityRepository;
 import com.main.expensemanagerapi.repository.categoryEntity.CategoryEntityRepository;
@@ -83,13 +84,32 @@ public class MutationService {
         Account account = new Account(
                 accountId,
                 createAccount.getOrganizationId(),
-                createAccount.getBalance(),
                 userSub,
                 Currency.getInstance(createAccount.getCurrency()),
                 createAccount.getName(),
                 createAccount.getType()
         );
         this.accountEntityRepository.save(account);
+
+        // TODO:: dynamic category id.
+        String accountRecordId = UUID.randomUUID().toString();
+        String incomeCategoryId = "6fb109ec-a3cb-4b6d-ae9a-52fd53995840";
+
+        AccountRecord accountRecord = new AccountRecord(
+                accountRecordId,
+                incomeCategoryId,
+                createAccount.getBalance(),
+                Currency.getInstance(createAccount.getCurrency()),
+                new Date(),
+                "Account created",
+                "",
+                accountId,
+                null,
+                RecordType.TRANSFER
+        );
+
+        this.accountRecordEntityRepository.save(accountRecord);
+
         return accountId;
     }
 
