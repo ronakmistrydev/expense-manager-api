@@ -5,6 +5,7 @@ import com.main.expensemanagerapi.enums.RecordType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 public class CreateAccountRecord {
     private final String categoryId;
@@ -19,7 +20,19 @@ public class CreateAccountRecord {
     private final LocalTime time;
     private final String organizationId;
 
-    public CreateAccountRecord(String categoryId, BigDecimal amount, String currency, String note, String payee, String fromAccountId, String toAccountId, RecordType type, LocalDate date, LocalTime time, String organizationId) {
+    public CreateAccountRecord(
+            String categoryId,
+            BigDecimal amount,
+            String currency,
+            String note,
+            String payee,
+            String fromAccountId,
+            String toAccountId,
+            RecordType type,
+            LocalDate date,
+            LocalTime time,
+            String organizationId
+    ) {
         this.categoryId = categoryId;
         this.amount = amount;
         this.currency = currency;

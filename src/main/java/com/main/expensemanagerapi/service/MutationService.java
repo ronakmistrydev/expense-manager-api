@@ -18,6 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -118,12 +123,18 @@ public class MutationService {
     }
 
     public String createRecord(String userSub, CreateAccountRecord createAccountRecord) {
+        this.throwIfInvalidOrganization(createAccountRecord.getOrganizationId(), userSub);
+        String accountRecordId = UUID.randomUUID().toString();
+
+        LocalDateTime localDateTime = LocalDateTime.of(createAccountRecord.getDate(), createAccountRecord.getTime());
+        Date createdAt = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+
         AccountRecord accountRecord = new AccountRecord(
-                UUID.randomUUID().toString(),
+                accountRecordId,
                 createAccountRecord.getCategoryId(),
                 createAccountRecord.getAmount(),
                 Currency.getInstance(createAccountRecord.getCurrency()),
-                new Date(),
+                createdAt,
                 createAccountRecord.getNote(),
                 createAccountRecord.getPayee(),
                 createAccountRecord.getFromAccountId(),
@@ -131,7 +142,7 @@ public class MutationService {
                 createAccountRecord.getType()
         );
         this.accountRecordEntityRepository.save(accountRecord);
-        return accountRecord.getId();
+        return accountRecordId;
     }
 
     public List<AccountRecord> findRecords(String organizationId, String userSub) {

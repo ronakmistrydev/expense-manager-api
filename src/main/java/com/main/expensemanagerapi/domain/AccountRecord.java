@@ -1,6 +1,5 @@
 package com.main.expensemanagerapi.domain;
 
-import com.main.expensemanagerapi.dto.AccountRecordDto;
 import com.main.expensemanagerapi.enums.RecordType;
 
 import java.math.BigDecimal;
@@ -9,18 +8,16 @@ import java.util.Date;
 
 public class AccountRecord {
 
-    private String id;
-    private String categoryId;
-    private BigDecimal amount;
-    private Currency currency;
-    private Date createdAt;
-    private String note;
-    private String payee;
-    private String fromAccountId;
-    private String toAccountId;
-    private RecordType type;
-
-    //TODO:: add record users
+    private final String id;
+    private final String categoryId;
+    private final BigDecimal amount;
+    private final Currency currency;
+    private final Date createdAt;
+    private final String note;
+    private final String payee;
+    private final String fromAccountId;
+    private final String toAccountId;
+    private final RecordType type;
 
     public AccountRecord(
         String id,
@@ -44,22 +41,6 @@ public class AccountRecord {
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.type = type;
-    }
-
-    public AccountRecord(
-        String id,
-        Date createdAt,
-        AccountRecordDto dto
-    ) {
-        this.id = id;
-        this.categoryId = dto.getCategoryId();
-        this.amount = dto.getAmount();
-        this.currency = dto.getCurrency();
-        this.createdAt = createdAt;
-        this.note = dto.getNote();
-        this.payee = dto.getPayee();
-        this.toAccountId = dto.getToAccountId();
-        this.type = dto.getType();
     }
 
     public String getId() {
