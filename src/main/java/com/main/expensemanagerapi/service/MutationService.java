@@ -38,8 +38,6 @@ public class MutationService {
         this.accountRecordEntityRepository = accountRecordEntityRepository;
     }
 
-    // dfcb6a93-11f4-431c-bcd2-4c906d0323d9 - org id
-
     public String register(String userSub) {
         boolean isAlreadyExists = this.organizationEntityRepository.hasOrganizationByUserSub(userSub);
         if (isAlreadyExists) return this.organizationEntityRepository.getByUserSub(userSub).getId();
