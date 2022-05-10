@@ -14,15 +14,15 @@ import java.util.stream.Collectors;
 @Component
 public class AccountEntityRepository implements EntityRepository<Account> {
 
+    private final MongoTemplate mongoTemplate;
+
     @Autowired
-    private MongoTemplate mongoTemplate;
-    @Override
-    public Account getById(String id) {
-        return null;
+    public AccountEntityRepository(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
     }
 
     @Override
-    public List<Account> findAll() {
+    public Account getById(String id) {
         return null;
     }
 

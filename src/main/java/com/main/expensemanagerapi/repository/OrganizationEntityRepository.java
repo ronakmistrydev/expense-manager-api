@@ -13,19 +13,19 @@ import java.util.List;
 @Component
 public class OrganizationEntityRepository implements EntityRepository<Organization> {
 
+
+    private final MongoTemplate mongoTemplate;
+
     @Autowired
-    private MongoTemplate mongoTemplate;
+    public OrganizationEntityRepository(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     public Organization getById(String id) {
         OrganizationEntity organizationEntity = mongoTemplate.findById(id, OrganizationEntity.class);
         assert organizationEntity != null;
         return OrganizationEntity.toDomain(organizationEntity);
-    }
-
-    @Override
-    public List<Organization> findAll() {
-        return null;
     }
 
     @Override

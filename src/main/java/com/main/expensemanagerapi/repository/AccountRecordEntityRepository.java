@@ -15,19 +15,19 @@ import java.util.stream.Collectors;
 
 @Component
 public class AccountRecordEntityRepository implements EntityRepository<AccountRecord> {
+
+    private final MongoTemplate mongoTemplate;
+
     @Autowired
-    private MongoTemplate mongoTemplate;
+    public AccountRecordEntityRepository(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     public AccountRecord getById(String id) {
         AccountRecordEntity byId = mongoTemplate.findById(id, AccountRecordEntity.class);
         assert byId != null;
         return AccountRecordEntity.toDomain(byId);
-    }
-
-    @Override
-    public List<AccountRecord> findAll() {
-        return null;
     }
 
     @Override

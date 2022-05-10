@@ -12,15 +12,18 @@ import java.util.stream.Collectors;
 @Component
 public class CategoryRepository implements EntityRepository<Category> {
 
+    private final MongoTemplate mongoTemplate;
+
     @Autowired
-    private MongoTemplate mongoTemplate;
+    public CategoryRepository(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     public Category getById(String id) {
         return null;
     }
 
-    @Override
     public List<Category> findAll() {
         return mongoTemplate.findAll(CategoryEntity.class)
                 .stream()
