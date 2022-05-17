@@ -15,6 +15,9 @@ public class CreateAccountRecord {
     private final String fromAccountId;
     private final String toAccountId;
     private final RecordType type;
+    private final LocalDate date;
+    private final LocalTime time;
+    private final String organizationId;
 
     public CreateAccountRecord(
             String categoryId,
@@ -24,7 +27,10 @@ public class CreateAccountRecord {
             String payee,
             String fromAccountId,
             String toAccountId,
-            RecordType type
+            RecordType type,
+            LocalDate date,
+            LocalTime time,
+            String organizationId
     ) {
         this.categoryId = categoryId;
         this.amount = amount;
@@ -34,6 +40,9 @@ public class CreateAccountRecord {
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.type = type;
+        this.date = date;
+        this.time = time;
+        this.organizationId = organizationId;
     }
 
     public String getCategoryId() {
@@ -69,10 +78,14 @@ public class CreateAccountRecord {
     }
 
     public LocalDate getDate() {
-        return LocalDate.now();
+        return date;
     }
 
     public LocalTime getTime() {
-        return LocalTime.now();
+        return time;
+    }
+
+    public String getOrganizationId() {
+        return organizationId;
     }
 }
