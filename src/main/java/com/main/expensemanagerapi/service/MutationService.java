@@ -121,8 +121,8 @@ public class MutationService {
         return this.categoryEntityRepository.findAll();
     }
 
-    public String createRecord(String userSub, CreateAccountRecord createAccountRecord) {
-        this.throwIfInvalidOrganization(createAccountRecord.getOrganizationId(), userSub);
+    public String createRecord(String organizationId, String userSub, CreateAccountRecord createAccountRecord) {
+        this.throwIfInvalidOrganization(organizationId, userSub);
         String accountRecordId = UUID.randomUUID().toString();
         AccountRecord accountRecord = new AccountRecord(
                 accountRecordId,

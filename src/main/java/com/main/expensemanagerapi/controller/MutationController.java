@@ -43,8 +43,12 @@ public class MutationController {
     }
 
     @PostMapping("/createRecord")
-    public String createAccount(Authentication authentication, @RequestBody CreateAccountRecord accountRecord) {
-        return this.mutationService.createRecord(authentication.getName(), accountRecord);
+    public String createAccount(
+        Authentication authentication,
+        @RequestBody CreateAccountRecord accountRecord,
+        @RequestParam final String organizationId
+    ) {
+        return this.mutationService.createRecord(organizationId, authentication.getName(), accountRecord);
     }
 
     @PutMapping("/updateRecord")
