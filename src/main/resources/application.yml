@@ -1,16 +1,16 @@
 auth0:
-  audience: https://expense-manager-dev-api/
+  audience:  ${AUTH0_AUDIENCE}
 
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://expense-manager-dev:6Gru3iDfZW2EhRuK@cluster0.rbcxf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-      database: myFirstDatabase
+      uri: mongodb://root:root@localhost:27017
+      database: expense-manager
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://expense-manager-dev.us.auth0.com/
+          issuer-uri: ${AUTH0_JWT_ISSUER_URL}
 
 server:
   servlet:
