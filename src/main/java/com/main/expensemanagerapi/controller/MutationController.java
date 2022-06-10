@@ -1,8 +1,5 @@
 package com.main.expensemanagerapi.controller;
 
-import com.main.expensemanagerapi.domain.AccountRecord;
-import com.main.expensemanagerapi.domain.Category;
-import com.main.expensemanagerapi.domain.account.Account;
 import com.main.expensemanagerapi.service.MutationService;
 import com.main.expensemanagerapi.types.CreateAccount;
 import com.main.expensemanagerapi.types.CreateAccountRecord;
@@ -27,19 +24,10 @@ public class MutationController {
         return mutationService.register(authentication.getName());
     }
 
-    @GetMapping("/accountsByOrganization")
-    public List<Account> accountsByOrganization(Authentication authentication, @RequestParam final String organizationId) {
-        return this.mutationService.findAccounts(organizationId, authentication.getName());
-    }
 
     @PostMapping("/createAccount")
     public String createAccount(Authentication authentication, @RequestBody CreateAccount createAccount) {
         return this.mutationService.createAccount(authentication.getName(), createAccount);
-    }
-
-    @GetMapping("/categories")
-    public List<Category> categories() {
-        return this.mutationService.findCategories();
     }
 
     @PostMapping("/createRecord")
@@ -55,10 +43,4 @@ public class MutationController {
     public String createAccount(Authentication authentication, @RequestBody UpdateAccountRecord updateAccountRecord) {
         return this.mutationService.updateRecord(authentication.getName(), updateAccountRecord);
     }
-
-    @GetMapping("/records")
-    public List<AccountRecord> categories(Authentication authentication, @RequestParam final String organizationId) {
-        return this.mutationService.findRecords(organizationId, authentication.getName());
-    }
-
 }
